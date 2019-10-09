@@ -7,6 +7,11 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import { isTSExpressionWithTypeArguments } from '@babel/types';
+import { DataGrid } from 'tubular-react';
+import { ColumnModel } from 'tubular-common';
+import IconButton from '@material-ui/core/IconButton';
+import { Brightness7Rounded } from '@material-ui/icons';
+
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -41,10 +46,26 @@ function formatData(name, address, city, rating) { //raw data is a props passed 
 // . 
 // name:xxx, address:xxx, city:xxx, rating:xxx}
 //]
+/* const columns = [
+  new ColumnModel('Navn'),
+  new ColumnModel('Adressen'),
+  new ColumnModel('By'),
+  new ColumnModel('Rating')
+]; */
+const columns = [
+  new ColumnModel('OrderID'),
+  new ColumnModel('CustomerName'),
+  new ColumnModel('ShipperCity')
+];
 const List = props => {
   const classes = useStyles();
   let rows = props.listData// formatData(props.listData);
   return (
+    <DataGrid     columns={columns}
+    dataSource={'https://tubular.azurewebsites.net/api/orders/paged'}
+    gridName='Tubular-React'>
+    </DataGrid>
+/* 
     <Paper className={classes.root}>
       <Table className={classes.table}>
         <TableHead>
@@ -66,7 +87,7 @@ const List = props => {
           ))}
         </TableBody>
       </Table>
-    </Paper>
+    </Paper> */
   );
 }
 
