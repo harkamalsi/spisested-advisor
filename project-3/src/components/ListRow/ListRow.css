@@ -4,23 +4,24 @@
     flex-wrap: wrap;
     justify-content: space-between;
     border-radius: 0%;
-    border-style: groove;
+    /*border-style: none groove groove groove;*/
     background-color:#e2e2e2a9;
+    font-weight: 200;
+    text-align: left;
 }
 .Row:hover {
     background-color: #e2e2e249;
   }
 .Cell{
     display: inline-flex;
-    width: 25%;
-    font-weight: 200;
-    text-align: left;
+    width: 30%;
+
 }
 
 #SmileyCell{
-    width: auto;
+    width: 10%;
     flex-shrink: 4;
-    align-items: center;
+    justify-content: center;
 }
 #StarCell{
     justify-content: space-around;

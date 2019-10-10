@@ -1,8 +1,10 @@
 .Table{
     display: flex;
     flex-direction: column;
-    border-radius: 0%;
-    width: 90%;
+    border-radius: 0;
+    width: 100%;
+    padding: 0%;
+    margin: 5px;
     font-size: 30px;
 }
 
@@ -11,7 +13,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
-    border-style: groove;
+    /*border-style: groove;*/
     width: auto;
     background-color:#e2e2e2a9;
 
@@ -19,12 +21,13 @@
 
 .Column{
     display: flex;
-    width: 25%;
+    width: 30%;
     text-align: left;
     font-weight: 600;
 }
 #ColumnFace {
-    width: auto;
+    width: 10%;
+    justify-content: center;
 }
 #ColumnStar{
     justify-content: space-around;
