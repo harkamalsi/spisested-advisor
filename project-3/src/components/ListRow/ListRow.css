@@ -1,0 +1,15 @@
+.Row{
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border-radius: 0%;
+    border-style: groove;
+    background-color:#d3d1d1;
+}
+.Cell{
+    width: 20%;
+    text-align: left;
+    font-weight: 200;
+
+}

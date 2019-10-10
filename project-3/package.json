@@ -8,6 +8,7 @@
     "react": "^16.10.1",
     "react-dom": "^16.10.1",
     "react-scripts": "3.2.0",
+    "react-star-rating-component": "^1.4.1",
     "tubular-react": "^2.0.8"
   },
   "scripts": {
