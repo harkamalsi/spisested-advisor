@@ -1,5 +1,6 @@
 import React from 'react';
 import './ListRow.css';
+import Smiley from '../Smiley/Smiley.js';
 import StarRatingComponent from 'react-star-rating-component';
 
 function onStarClick(nextValue, prevValue, name) {
@@ -17,15 +18,12 @@ const ListRow = (props) =>{
                 {row.name}
             </div>
             <div className = "Cell">
-                {row.address}
-            </div>
-            <div className = "Cell">
                 {row.city}
             </div>
-            <div className = "Cell">
-                {row.smiley}
+            <div id="SmileyCell" className = "Cell">
+                <Smiley value={row.smiley}></Smiley>
             </div>
-            <div className = "Cell">
+            <div id="StarCell" className = "Cell">
             <StarRatingComponent 
                 name="rate"  
                 starCount={5}

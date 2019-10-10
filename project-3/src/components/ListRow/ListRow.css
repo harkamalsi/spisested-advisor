@@ -1,15 +1,27 @@
 .Row{
-    display: inline-flex;
+    display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
     border-radius: 0%;
     border-style: groove;
-    background-color:#d3d1d1;
+    background-color:#e2e2e2a9;
 }
+.Row:hover {
+    background-color: #e2e2e249;
+  }
 .Cell{
-    width: 20%;
-    text-align: left;
+    display: inline-flex;
+    width: 25%;
     font-weight: 200;
+    text-align: left;
+}
 
+#SmileyCell{
+    width: auto;
+    flex-shrink: 4;
+    align-items: center;
+}
+#StarCell{
+    justify-content: space-around;
 }

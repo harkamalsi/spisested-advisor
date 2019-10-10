@@ -13,16 +13,14 @@ const List = props => {
                     <div className = "Column">
                         Navn
                     </div>
-                    <div className = "Column">
-                        Adressen
-                    </div>
+
                     <div className = "Column">
                         By
                     </div>
-                    <div className = "Column">
+                    <div id="ColumnFace" className = "Column">
                         Fjes
                     </div>
-                    <div className = "Column">
+                    <div id="ColumnStar" className = "Column">
                         Vurdering
                     </div>
                 </li>    

@@ -4,7 +4,6 @@
     border-radius: 0%;
     width: 90%;
     font-size: 30px;
-
 }
 
 .TableHeader{
@@ -14,11 +13,19 @@
     justify-content: space-between;
     border-style: groove;
     width: auto;
-    background-color:#d3d1d1;
+    background-color:#e2e2e2a9;
+
 }
 
 .Column{
-    width: 20%;
+    display: flex;
+    width: 25%;
     text-align: left;
     font-weight: 600;
+}
+#ColumnFace {
+    width: auto;
+}
+#ColumnStar{
+    justify-content: space-around;
 }
