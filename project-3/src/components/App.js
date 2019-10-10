@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {increment} from '../actions';
 import {decrement} from '../actions';
+import Mapcomponent from './Mapcomponent'
 
 const App = () => {
   const counter = useSelector(state => state.counter);
@@ -14,7 +15,7 @@ const App = () => {
       <button onClick={() => dispatch(increment())}>+</button>
       <button onClick={ () => dispatch(decrement())}>-</button>
     
-
+      <Mapcomponent></Mapcomponent>
 
     </div>
 
