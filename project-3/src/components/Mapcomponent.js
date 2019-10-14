@@ -17,7 +17,7 @@ const Mapcomponent = () => {
             <Marker position={position}>
                 <Popup>
                     NTNU GLØS <br/> 
-                    ONLINE KONTORET
+                    ONLINE-KONTORET
                 </Popup>
             </Marker>
             <Marker position={[63.435687, 10.416358]}>
