@@ -10,4 +10,10 @@ export const decrement = () => {
   };
 };
 
+export const addMarker = (coordinates) => {
+  return {
+    type: 'ADDMARKER'
+  };
+};
+
 
