@@ -1,34 +1,32 @@
-.Table{
-    display: flex;
-    flex-direction: column;
-    border-radius: 0;
-    width: 100%;
-    padding: 0%;
-    margin: 5px;
-    font-size: 30px;
+.Table {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0%;
+  margin: 5px;
+  font-size: 20px;
 }
 
-.TableHeader{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    /*border-style: groove;*/
-    width: auto;
-    background-color:#e2e2e2a9;
-
+.TableHeader {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  /*border-style: groove;*/
+  width: auto;
+  background-color: #e2e2e2a9;
 }
 
-.Column{
-    display: flex;
-    width: 30%;
-    text-align: left;
-    font-weight: 600;
+.Column {
+  display: flex;
+  width: 25%;
+  text-align: left;
+  font-weight: 600;
 }
 #ColumnFace {
-    width: 10%;
-    justify-content: center;
+  width: 25%;
+  justify-content: center;
 }
-#ColumnStar{
-    justify-content: space-around;
+#ColumnStar {
+  /*justify-content: space-around;*/
 }
