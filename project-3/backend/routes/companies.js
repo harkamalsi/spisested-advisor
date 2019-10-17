@@ -10,9 +10,14 @@ router.route('/').get((req, res) => {
   let postnr = req.body.postnr;
   let poststed = req.body.poststed;
 
-  Company.find({
-    $or: [{ poststed }, { postnr }]
-  })
+  let query = {};
+  if (postnr || poststed) {
+    query = {
+      $or: [{ poststed }, { postnr }]
+    };
+  }
+
+  Company.find(query)
     .limit(5)
     .then(companies => res.json(companies))
     .catch(err => res.status(400).json('Error: ' + err));
