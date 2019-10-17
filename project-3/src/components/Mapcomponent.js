@@ -1,49 +1,65 @@
 import React from 'react';
 import './Mapcomponent.css';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
+import MarkerClusterGroup from 'react-leaflet-markercluster';
 
-
-
+  
 
 
 const Mapcomponent = (props) => {
+
     console.log("mapcomponent updated");
+
     let coordinate = props.coordinate;
-    let coordinates; 
+    let coordinates = [[63.415517, 10.404421], [63.41, 10.4], [63.43, 10.39],
+    [63.43, 10.43], [63.42, 10.405], [63.40159, 10.4156]
+    ]; 
+
     console.log(coordinate);
-    if (coordinate != undefined) {
-        coordinates = coordinate.split(", ");
+
+    /* if (coordinate !== undefined) { 
+        coordinates.push(coordinate.split(", ").map((element) => parseFloat(element)));
         console.log(coordinates);
-        coordinates = coordinates.map((element) => parseFloat(element));
         
-    for (let i = 0; i < coordinates.length; i++){
-        
-    }
-    };
+    } else {
+        coordinates = [63.415517, 10.404421]
+    }; */
 
     const zoom = 12;
     
     return (
-        <Map className='heo' center={coordinates} zoom={zoom}>
+      
+
+         <Map className='heo' center={coordinates[0]} zoom={zoom} maxZoom={20}>
             <TileLayer
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url='https://{s}.tile.osm.org/{z}/{x}/{y}.png'
             />
-            
-            <MapMarker coordinates={coordinates} popuptext={"NTNU GLØS ONLINE-KONTORET"} />
-            <MapMarker coordinates={[63.435687, 10.416358]} popuptext="HEI"></MapMarker>
-        </Map>
+            <MapMarkers coordinates={coordinates}  />
+        </Map> 
     );
 }
 
+//popuptext={"NTNU GLØS ONLINE-KONTORET"}
 
-const MapMarker = (props) => {
+
+const MapMarkers = (props) => {
+    
+
+    console.log(props.coordinates);
+
+    
+
+    let i = 0;
+
     return (
-        <Marker position={props.coordinates}>
-            <Popup>
-                {props.popuptext}
-            </Popup>
-        </Marker>
+        
+            <MarkerClusterGroup>
+             {props.coordinates.map(coordinate => <Marker key={i++} position={coordinate}>
+              <Popup>Lat: {coordinate[0]} Long: {coordinate[1]}</Popup>
+          </Marker>)}
+          </MarkerClusterGroup>
+        
     )
 }
 

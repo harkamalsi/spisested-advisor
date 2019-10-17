@@ -1,3 +1,6 @@
+@import url('~react-leaflet-markercluster/dist/styles.min.css'); 
+
+
 .heo{ height: 500px; 
     width: 600px;
 }

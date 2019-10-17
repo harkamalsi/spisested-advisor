@@ -19,13 +19,12 @@ const App = () => {
   const [coordinate, setCoordinate] = useState(undefined);
 
   let coordinates = "62.415517, 10.404421";
-  let submitCoordinates = "62.415517, 10.404421";
 
   const forceUpdate = useForceUpdate();
  
   const handleSubmit = (event) => {
     console.log('A coordinate was submitted: ' + coordinates);
-    
+
     event.preventDefault();
     setCoordinate(coordinates);
   }
