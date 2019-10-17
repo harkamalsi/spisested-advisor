@@ -10,7 +10,11 @@ const ListRow = props => {
   //last rating to the database
   const [rating, setRating] = useState(0);
   const [ratingGiven, setGivenRating] = useState(false);
+  let row = props.rowData;
+  let id = row.id;
+  let smileysComponents = formatSmileys(row.smileys);
 
+  /*
   //Fetches extra information for an expanded row
   function fetchExtraInformation(id) {
     return {
@@ -18,20 +22,21 @@ const ListRow = props => {
       postcode: "7012",
       totalRating: "4.33"
     };
-  }
-  //format fetched extra information (object) in JSX format
-  function formatExtraInformation(object, smileysComponents) {
+  }*/
+
+  //format extra information in JSX format
+  function formatExtraInformation() {
     let text = !ratingGiven ? "Gi en vurdering :" : "Din vurdering:";
     return (
       <div className="ExtraInformation">
         <div id="Address2Cell" className="Cell">
-          {object.addr2}
+          {row.address}
         </div>
         <div id="GiveReviewCell" className="Cell">
           {text}
         </div>
         <div id="PostcodeCell" className="Cell">
-          {object.postcode}
+          {row.postcode}
         </div>
         <div id="StarCell" className="Cell">
           <StarRatingComponent
@@ -56,16 +61,13 @@ const ListRow = props => {
     );
   }
   //Sincronyse frontend with backend with rating given by the user
-  function updateRating(newValue) {
-    //logic for comunicating with API
-  }
 
   //handles a start click
   function onStarClick(nextValue, prevValue, name, e) {
+    setGivenRating(true);
+    props.saveReview(id, nextValue);
     //stop propagating to the parent onClick function (not working, must check why)
     e.stopPropagation();
-    setGivenRating(true);
-    updateRating(nextValue);
   }
   function onStarHover(nextValue) {
     setRating(nextValue);
@@ -95,18 +97,14 @@ const ListRow = props => {
         ></Smiley>
       ));
   }
-  let row = props.rowData;
-  let smileysComponents = formatSmileys(row.smileys);
+
   let rowClassType = null;
   let extraInformation = null;
 
   //If prop is true, set rowClassType to expanded Row and then render an expanded row.
   if (props.isExpanded) {
     rowClassType = "Row Expanded";
-    extraInformation = formatExtraInformation(
-      fetchExtraInformation(row.id),
-      smileysComponents
-    );
+    extraInformation = formatExtraInformation();
   } else rowClassType = "Row";
   let pic = <img className="Star" src={Star} alt="Star" />;
   return (
@@ -128,7 +126,6 @@ const ListRow = props => {
         <p className="Text"> {row.rating}/5 </p>
         {pic}
       </div>
-
       {extraInformation}
     </li>
   );

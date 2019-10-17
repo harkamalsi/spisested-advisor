@@ -7,6 +7,7 @@ const data = [
     id: 0,
     name: "McDonald",
     address: "Torgetvei 3",
+    postcode: "7012",
     city: "Trondheim",
     smileys:
       "06202000-0.02011993-1.12012021-0.02012010-2.11122012-1.09122019-3",
@@ -15,7 +16,8 @@ const data = [
   {
     id: 1,
     name: "Burger King",
-    address: 2,
+    address: "Somethingveien 55",
+    postcode: "7012",
     city: "Bergen",
     smileys:
       "06202000-0.02011993-1.12012021-0.02012010-2.11122012-1.09122019-3",
@@ -24,7 +26,8 @@ const data = [
   {
     id: 2,
     name: "Villa paradiso",
-    address: 3,
+    address: "Somethingveien 55",
+    postcode: "7012",
     city: "Oslo",
     smileys:
       "06202000-0.02011993-1.12012021-0.02012010-2.11122012-1.09122019-3",
@@ -34,6 +37,7 @@ const data = [
     id: 3,
     name: "Narvesen",
     address: "Stavangervei",
+    postcode: "1100",
     city: "Stavanger",
     smileys:
       "06202000-0.02011993-1.12012021-0.02012010-2.11122012-1.09122019-3",
@@ -42,7 +46,8 @@ const data = [
   {
     id: 4,
     name: "Una Pizzeria",
-    address: "something",
+    address: "Somethingveien 55",
+    postcode: "7012",
     city: "Trondheim",
     smileys:
       "06202000-0.02011993-1.12012021-0.02012010-2.11122012-1.09122019-3",
@@ -51,7 +56,8 @@ const data = [
   {
     id: 5,
     name: "Egon Restaurant",
-    address: 6,
+    address: "Somethingveien 55",
+    postcode: "7012",
     city: "Oslo",
     smileys:
       "06202000-0.02011993-1.12012021-0.02012010-2.11122012-1.09122019-3",
@@ -60,7 +66,8 @@ const data = [
   {
     id: 6,
     name: "Seven Eleven",
-    address: 7,
+    address: "Somethingveien 55",
+    postcode: "7012",
     city: "Alta",
     smileys:
       "06202000-0.02011993-1.12012021-0.02012010-2.11122012-1.09122019-3",
