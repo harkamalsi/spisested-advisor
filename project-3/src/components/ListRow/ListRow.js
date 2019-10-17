@@ -64,10 +64,10 @@ const ListRow = props => {
 
   //handles a start click
   function onStarClick(nextValue, prevValue, name, e) {
+    //stop propagating to the parent onClick function (not working, must check why)
+    e.preventDefault();
     setGivenRating(true);
     props.saveReview(id, nextValue);
-    //stop propagating to the parent onClick function (not working, must check why)
-    e.stopPropagation();
   }
   function onStarHover(nextValue) {
     setRating(nextValue);

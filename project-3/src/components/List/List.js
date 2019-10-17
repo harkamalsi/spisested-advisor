@@ -9,6 +9,7 @@ import "./List.css";
     Props:
     {listRawData} = A list of object with raw data (needs formatting)
         each element of the array will be displayed as a row.
+    {totalPages} = The number of the total pages of the list
     {onPreviousClick} = Triggers when Previous button clicked
     {onNextClick} = Triggers when Next button clicked
     {saveReview} = Syncronises user review with backend
@@ -43,6 +44,8 @@ const List = props => {
     //logic for comunicating with API
     console.log(id, starValue);
   }
+  function handleNextClick() {}
+  function handlePreviousClick() {}
   let rows = props.listRawData.map(row => (
     <ListRow
       key={row.id}
@@ -56,9 +59,21 @@ const List = props => {
   return (
     <ul className="Table">
       <ButtonToolbar id="Toolbar">
-        <Button variant="outline-secondary">Forrige</Button>{" "}
-        <p id="SideNr">Side nr 1</p>
-        <Button variant="outline-secondary">Neste</Button>
+        <Button
+          id="Previous"
+          variant="outline-secondary"
+          onClick={handlePreviousClick.bind(this)}
+        >
+          Forrige
+        </Button>{" "}
+        <p id="SideNr">Side nr 1/{props.totalPages}</p>
+        <Button
+          id="Next"
+          variant="outline-secondary"
+          onClick={handleNextClick.bind(this)}
+        >
+          Neste
+        </Button>
       </ButtonToolbar>
       {rows}
     </ul>
