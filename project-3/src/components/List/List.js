@@ -48,7 +48,7 @@ const List = props => {
       key={row.id}
       id={row.id}
       rowData={row}
-      handleClick={updateExpandedRow}
+      handleClick={updateExpandedRow.bind(this)}
       isExpanded={expandedRowId === row.id}
       saveReview={saveReview}
     ></ListRow>

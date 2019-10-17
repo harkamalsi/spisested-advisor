@@ -100,6 +100,7 @@ const ListRow = props => {
 
   let rowClassType = null;
   let extraInformation = null;
+  let stars = (row.sumStars / row.numberOfRatings).toFixed(2);
 
   //If prop is true, set rowClassType to expanded Row and then render an expanded row.
   if (props.isExpanded) {
@@ -123,7 +124,7 @@ const ListRow = props => {
         {smileysComponents[smileysComponents.length - 1]}
       </div>
       <div id="ReviewCell" className="Cell">
-        <p className="Text"> {row.rating}/5 </p>
+        <p className="Text"> {stars}/5 </p>
         {pic}
       </div>
       {extraInformation}

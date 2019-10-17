@@ -11,7 +11,8 @@ const data = [
     city: "Trondheim",
     smileys:
       "06202000-0.02011993-1.12012021-0.02012010-2.11122012-1.09122019-3",
-    rating: 1.11
+    numberOfRatings: 42,
+    sumStars: 122
   },
   {
     id: 1,
@@ -21,7 +22,8 @@ const data = [
     city: "Bergen",
     smileys:
       "06202000-0.02011993-1.12012021-0.02012010-2.11122012-1.09122019-3",
-    rating: 3.22
+    numberOfRatings: 44,
+    sumStars: 230
   },
   {
     id: 2,
@@ -31,7 +33,8 @@ const data = [
     city: "Oslo",
     smileys:
       "06202000-0.02011993-1.12012021-0.02012010-2.11122012-1.09122019-3",
-    rating: 3.33
+    numberOfRatings: 27,
+    sumStars: 122
   },
   {
     id: 3,
@@ -41,7 +44,8 @@ const data = [
     city: "Stavanger",
     smileys:
       "06202000-0.02011993-1.12012021-0.02012010-2.11122012-1.09122019-3",
-    rating: 2.32
+    numberOfRatings: 30,
+    sumStars: 122
   },
   {
     id: 4,
@@ -51,7 +55,8 @@ const data = [
     city: "Trondheim",
     smileys:
       "06202000-0.02011993-1.12012021-0.02012010-2.11122012-1.09122019-3",
-    rating: 4.33
+    numberOfRatings: 60,
+    sumStars: 122
   },
   {
     id: 5,
@@ -61,7 +66,8 @@ const data = [
     city: "Oslo",
     smileys:
       "06202000-0.02011993-1.12012021-0.02012010-2.11122012-1.09122019-3",
-    rating: 3.88
+    numberOfRatings: 44,
+    sumStars: 100
   },
   {
     id: 6,
@@ -71,7 +77,8 @@ const data = [
     city: "Alta",
     smileys:
       "06202000-0.02011993-1.12012021-0.02012010-2.11122012-1.09122019-3",
-    rating: 4.31
+    numberOfRatings: 70,
+    sumStars: 200
   }
 ];
 
