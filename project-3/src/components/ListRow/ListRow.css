@@ -11,8 +11,11 @@
   background-color: #e2e2e249;
 }
 .Cell {
+  display: flex;
+  flex-direction: row;
   font-weight: 200;
   text-align: left;
+  align-self: center;
 }
 .Expanded {
   background-color: #e2e2e256;
@@ -25,9 +28,12 @@
 }
 #NameCell {
   grid-area: 1/ 1/ 1/5;
+  font-size: 30px;
+  font-weight: 400;
 }
 #AdressCell {
   grid-area: 1/ 5/ 1/8;
+  font-weight: 400;
 }
 #SmileyCell {
   grid-area: 1/ 8/ 1/9;
@@ -35,7 +41,13 @@
 }
 #ReviewCell {
   grid-area: 1/ 9/ 1/11;
-  text-align: center;
+  font-weight: 400;
+  justify-content: flex-end;
+}
+.Text {
+  align-self: center;
+  padding: 0px 10px 0px 10px;
+  margin: 0px;
 }
 #Address2Cell {
   grid-area: 1/5/1/8;
@@ -55,10 +67,16 @@
 }
 #TextCell {
   grid-area: 3/1/3/5;
+  text-align: right;
 }
 #OldSmileys {
   grid-area: 3/5/3/8;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+}
+.Star {
+  width: 30px;
+  min-width: 25px;
+  margin: 5px;
 }

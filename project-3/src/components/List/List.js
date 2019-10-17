@@ -6,8 +6,6 @@ const List = props => {
   const [expandedRowId, setExpandedRow] = useState(null);
   //Logic to expand selected row (Can be used for test)
   function handleExpanedRow(id) {
-    console.log(id);
-
     if (expandedRowId === id) return null;
     return id;
   }
@@ -24,22 +22,7 @@ const List = props => {
       isExpanded={expandedRowId === row.id}
     ></ListRow>
   ));
-  return (
-    <ul className="Table">
-      <li className="TableHeader">
-        <div className="Column">Navn</div>
-
-        <div className="Column">By</div>
-        <div id="ColumnFace" className="Column">
-          Fjes
-        </div>
-        <div id="ColumnStar" className="Column">
-          Vurdering
-        </div>
-      </li>
-      {rows}
-    </ul>
-  );
+  return <ul className="Table">{rows}</ul>;
 };
 
 export default List;
