@@ -2,15 +2,7 @@ import React, { useState } from "react";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import magnifyingGlass from "./mg.svg";
-
 import "./Searchbar.css";
-import { func } from "prop-types";
-
-/* const options = [
-  { value: "chocolate", label: "Chocolate" },
-  { value: "strawberry", label: "Strawberry" },
-  { value: "vanilla", label: "Vanilla" }
-]; */
 
 const cities = [
   "Oslo",
@@ -432,15 +424,13 @@ const cities = [
 ];
 const cityOptions = cities.map(city => ({ value: city, label: city }));
 const smileyOptions = [
-  { value: 0, label: "Smil" },
-  { value: 2, label: "Nøytral" },
-  { value: 3, label: "Sur" }
+  { value: "0", label: "Smil" },
+  { value: "2", label: "Nøytral" },
+  { value: "3", label: "Sur" }
 ];
 const sortOptions = [
   { value: "NAME_AZ", label: "Navn A-Å" },
   { value: "NAME_ZA", label: "Navn Å-A" },
-  { value: "DATE_DESC", label: "Dato Ny-Eldre" },
-  { value: "DATE_ASC", label: "Dato Eldre-Ny" },
   { value: "SMILEY_DESC", label: "Fjes Glad-Sur" },
   { value: "SMILEY_ASC", label: "Fjes Sur-Glad" }
 ];
@@ -449,7 +439,7 @@ const animatedComponents = makeAnimated();
 
 const Searchbar = props => {
   const [isExpanded, setExpand] = useState(false);
-  const [navn, setNavn] = useState("");
+  const [name, setName] = useState("");
   const [orderBy, setOrder] = useState(sortOptions[0].value);
   const [cities, addCity] = useState([]);
   const [smileys, addSmiley] = useState([]);
@@ -465,18 +455,29 @@ const Searchbar = props => {
 
   //Called on click of the search button
   function handleSearch() {
-    console.log("searching for something");
-    let request = {
-      navn: navn,
-      orderBy: orderBy,
-      cities: cities,
-      smileys: smileys
-    };
-    console.log(request);
+    let parameters =
+      "name=" +
+      name +
+      "&orderBy=" +
+      orderBy +
+      "&cities=" +
+      cities +
+      "&smileys=" +
+      smileys;
+    console.log(parameters);
+    fetch("/companies/?" + parameters, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      }
+    }).then(response => {
+      console.log(response);
+    });
   }
+
   //Called when text into textfield navn changes, updates navn state
   function handleTextChange(event) {
-    setNavn(event.target.value);
+    setName(event.target.value);
   }
   //Called when more filters button is clicked, toogles the expand state of the searchbar
   function handleFiltersClick() {
@@ -493,18 +494,18 @@ const Searchbar = props => {
   }
   //Called when a new city is selected
   function handleSelectCity(selectedOption) {
-    let tmp = [];
+    let tmp = "";
     selectedOption.forEach(element => {
-      tmp.push(element.value);
+      tmp = tmp + (tmp.length > 0 ? "-" : "") + element.value;
     });
     addCity(tmp);
   }
   //Called when a new smiley filter is selected
   function handleSelectSmiley(selectedOption) {
-    let tmp = [];
+    let tmp = "";
     selectedOption.forEach(element => {
-      tmp.push(element.value);
-      if (element.value === 0) tmp.push(1);
+      tmp = tmp + (tmp.length > 0 ? "-" : "") + element.value;
+      if (element.value === "0") tmp = tmp + "-" + "1";
     });
     addSmiley(tmp);
   }
