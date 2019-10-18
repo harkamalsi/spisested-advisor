@@ -78,12 +78,12 @@ Company.aggregate([
   { $regexFindAll: { input: '$name', regex: `/${req.body.name}/i` } }
 ]) */
 router.route('/name').get((req, res) => {
-  console.log(req.body.name);
+  let name = req.body.name;
 
   //let regexPattern = new RegExp('/Baker/i');
   //{ $regex: regexPattern }
 
-  Company.find({ Name: new RegExp('Baker') })
+  Company.find({ name: new RegExp(name, 'i') })
     .limit(5)
     .then(company => res.json(company))
     .catch(err => res.status(400).json('Error: ' + err));
