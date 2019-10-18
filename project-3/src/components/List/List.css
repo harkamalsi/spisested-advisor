@@ -2,10 +2,13 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 0%;
-  margin: 5px;
-  font-size: 20px;
+  height: 100%;
+  font-size: 15px;
   min-width: 460px;
+  min-width: 200px;
+}
+#Rows {
+  overflow: scroll;
 }
 #Toolbar {
   align-self: flex-end;
