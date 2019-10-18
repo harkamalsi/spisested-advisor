@@ -31,10 +31,16 @@
 #SortSelectbar {
   width: 80%;
 }
-#FiltersButton {
+#FiltersButtonCell {
   grid-area: 3/ 2/ 3/3;
   display: flex;
   justify-content: flex-start;
+  border: none;
+}
+#FiltersButton {
+  border: none;
+  background: none;
+  color: #12649b;
 }
 #ExtraFilters {
   grid-area: 4/ 1/ 4/6;

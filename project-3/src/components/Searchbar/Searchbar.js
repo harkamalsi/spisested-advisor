@@ -4,6 +4,7 @@ import makeAnimated from "react-select/animated";
 import magnifyingGlass from "./mg.svg";
 
 import "./Searchbar.css";
+import { func } from "prop-types";
 
 /* const options = [
   { value: "chocolate", label: "Chocolate" },
@@ -431,9 +432,9 @@ const cities = [
 ];
 const cityOptions = cities.map(city => ({ value: city, label: city }));
 const smileyOptions = [
-  { value: "happy", label: "Smil" },
-  { value: "neutral", label: "Nøytral" },
-  { value: "sad", label: "Sur" }
+  { value: 0, label: "Smil" },
+  { value: 2, label: "Nøytral" },
+  { value: 3, label: "Sur" }
 ];
 const sortOptions = [
   { value: "NAME_AZ", label: "Navn A-Å" },
@@ -447,6 +448,13 @@ const sortOptions = [
 const animatedComponents = makeAnimated();
 
 const Searchbar = props => {
+  const [isExpanded, setExpand] = useState(false);
+  const [navn, setNavn] = useState("");
+  const [orderBy, setOrder] = useState(sortOptions[0].value);
+  const [cities, addCity] = useState([]);
+  const [smileys, addSmiley] = useState([]);
+
+  //Magnifying glass svg icon for search button
   const pic = (
     <img
       className="MagnifyingGlass"
@@ -454,15 +462,53 @@ const Searchbar = props => {
       alt="Magnifying Glass"
     />
   );
-  const [isExpanded, setExpand] = useState(false);
 
-  function handleTextChange(event) {
-    console.log(event.target.value);
+  //Called on click of the search button
+  function handleSearch() {
+    console.log("searching for something");
+    let request = {
+      navn: navn,
+      orderBy: orderBy,
+      cities: cities,
+      smileys: smileys
+    };
+    console.log(request);
   }
-
+  //Called when text into textfield navn changes, updates navn state
+  function handleTextChange(event) {
+    setNavn(event.target.value);
+  }
+  //Called when more filters button is clicked, toogles the expand state of the searchbar
   function handleFiltersClick() {
     setExpand(!isExpanded);
+    //set cities and smileys filter to default values
+    if (isExpanded) {
+      addCity([]);
+      addSmiley([]);
+    }
   }
+  //Called when a new order is selected
+  function handleSelectOrder(selectedOption) {
+    setOrder(selectedOption.value);
+  }
+  //Called when a new city is selected
+  function handleSelectCity(selectedOption) {
+    let tmp = [];
+    selectedOption.forEach(element => {
+      tmp.push(element.value);
+    });
+    addCity(tmp);
+  }
+  //Called when a new smiley filter is selected
+  function handleSelectSmiley(selectedOption) {
+    let tmp = [];
+    selectedOption.forEach(element => {
+      tmp.push(element.value);
+      if (element.value === 0) tmp.push(1);
+    });
+    addSmiley(tmp);
+  }
+  let ButtonText = isExpanded ? "Færre filter" : "Flere filter";
   let extraFilters = null;
   if (isExpanded) {
     extraFilters = (
@@ -477,6 +523,7 @@ const Searchbar = props => {
             components={animatedComponents}
             isMulti
             options={cityOptions}
+            onChange={handleSelectCity.bind(this)}
           />
         </div>
         <div className="Label" id="SmileysLabel">
@@ -489,6 +536,7 @@ const Searchbar = props => {
             components={animatedComponents}
             isMulti
             options={smileyOptions}
+            onChange={handleSelectSmiley.bind(this)}
           />
         </div>
       </div>
@@ -506,7 +554,9 @@ const Searchbar = props => {
           name="fname"
           onChange={handleTextChange}
         />
-        <button>{pic}</button>
+        <button id="SearchButton" onClick={handleSearch}>
+          {pic}
+        </button>
       </div>
       <div id="LabelSort" className="Label">
         Sorter etter
@@ -518,10 +568,13 @@ const Searchbar = props => {
           components={animatedComponents}
           options={sortOptions}
           defaultValue={sortOptions[0]}
+          onChange={handleSelectOrder.bind(this)}
         />
       </div>
-      <div id="FiltersButton">
-        <button onClick={handleFiltersClick}>Flere filter</button>
+      <div id="FiltersButtonCell">
+        <button id="FiltersButton" onClick={handleFiltersClick}>
+          {ButtonText}
+        </button>
       </div>
       {extraFilters}
     </div>
