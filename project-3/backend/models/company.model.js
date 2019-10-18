@@ -3,23 +3,23 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const companySchema = new Schema({
-  orgnummer: {
+  name: {
+    type: String
+  },
+  address: {
+    type: String
+  },
+  zipcode: {
     type: Number
   },
-  navn: {
+  city: {
     type: String
   },
-  adrlinje: {
-    type: String
-  },
-  postnr: {
-    type: Number
-  },
-  poststed: {
-    type: String
+  coordinates: {
+    type: Array
   },
   smileys: {
-    type: String
+    type: Array
   },
   numberOfRatings: {
     type: Number
