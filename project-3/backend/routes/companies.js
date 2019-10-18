@@ -80,9 +80,6 @@ Company.aggregate([
 router.route('/name').get((req, res) => {
   let name = req.body.name;
 
-  //let regexPattern = new RegExp('/Baker/i');
-  //{ $regex: regexPattern }
-
   Company.find({ name: new RegExp(name, 'i') })
     .limit(5)
     .then(company => res.json(company))
@@ -90,25 +87,13 @@ router.route('/name').get((req, res) => {
 });
 
 // @route     GET companies/smilies
-// @desc      Get smilies of companies
+// @desc      Get companies with given smiley grade(s) given at last review
 // @access    Public
 router.route('/smileys').get((req, res) => {
-  /* let query = {
-    {$arrayElemAt: [smileys, 0]}, { $elemMatch: { grade: req.body.grade } }]
-  }; */
+  console.log(req.body.smileys);
+  let smileysArr = req.body.smileys;
 
-  let query2 = {
-    'smileys.0': { $elemMatch: { grade: req.body.grade } }
-  };
-
-  let query3 = { first: { $arrayElemAt: ['$smileys', 0] } };
-
-  let query = {};
-
-  console.log(query2);
-
-  Company.find({}, { smileys: { $slice: req.body.slice } })
-    .limit(5)
+  Company.find({ 'smileys.0.grade': { $in: smileysArr } })
     .then(company => res.json(company))
     .catch(err => res.status(400).json('Error: ' + err));
 });
