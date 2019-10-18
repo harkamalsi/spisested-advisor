@@ -7,7 +7,7 @@ import Star from "./star.svg";
 const ListRow = props => {
   //State Hook for setting rating for this row
   //used to highlight hover stars, but on click ratinGiven becomes true and saves the
-  //last rating to the database
+  //last rating to the databases
   const [rating, setRating] = useState(0);
   const [ratingGiven, setGivenRating] = useState(false);
   let row = props.rowData;

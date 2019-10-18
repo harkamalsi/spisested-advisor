@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import List from "././components/List/List.js";
+import Searchbar from "././components/Searchbar/Searchbar.js";
 
 const data = [
   {
@@ -57,35 +58,16 @@ const data = [
       "06202000-0.02011993-1.12012021-0.02012010-2.11122012-1.09122019-3",
     numberOfRatings: 60,
     sumStars: 122
-  },
-  {
-    id: 5,
-    name: "Egon Restaurant",
-    address: "Somethingveien 55",
-    postcode: "7012",
-    city: "Oslo",
-    smileys:
-      "06202000-0.02011993-1.12012021-0.02012010-2.11122012-1.09122019-3",
-    numberOfRatings: 44,
-    sumStars: 100
-  },
-  {
-    id: 6,
-    name: "Seven Eleven",
-    address: "Somethingveien 55",
-    postcode: "7012",
-    city: "Alta",
-    smileys:
-      "06202000-0.02011993-1.12012021-0.02012010-2.11122012-1.09122019-3",
-    numberOfRatings: 70,
-    sumStars: 300
   }
 ];
 
 function App() {
   return (
     <div className="App">
-      <List listRawData={data} totalPages={112}></List>
+      <Searchbar></Searchbar>
+      <div className="List">
+        <List listRawData={data} totalPages={112}></List>
+      </div>
     </div>
   );
 }
