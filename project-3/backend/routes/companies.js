@@ -4,20 +4,19 @@ const router = express.Router();
 const Company = require('../models/company.model');
 
 // @route     GET companies
-// @desc      Get all companies with possible sorts on postnr and poststed
+// @desc      Get all companies with possible sorts and filters on zipcode and city
 // @access    Public
 router.route('/').get((req, res) => {
-  let postnr = req.body.postnr;
-  let poststed = req.body.poststed;
-  let navn = req.body.navn;
+  let zipcode = req.body.zipcode;
+  let name = req.body.name;
   let orderby = req.body.orderby;
   let cities = req.body.cities;
   let smileys = req.body.smileys;
 
   let query = {};
-  if (postnr || poststed || navn || orderby || cities || smileys) {
+  if (zipcode || name || orderby || cities || smileys) {
     query = {
-      $or: [{ poststed }, { postnr }]
+      $or: [{ cities }, { zipcode }]
     };
   }
 
@@ -47,28 +46,44 @@ router.route('/:id').put((req, res) => {
 // @desc      Get all cities
 // @access    Public
 router.route('/cities').get((req, res) => {
-  Company.aggregate([{ $project: { _id: 0, city: 1 } }])
+  //$project: { _id: 0, city: 1 }
+  Company.aggregate([{ $group: { _id: null, cities: { $addToSet: '$city' } } }])
     .limit(5)
     .then(company => res.json(company))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-// @route     GET companies/postnr/:postnr
+router.route('/sumstars').get((req, res) => {
+  Company.aggregate([{ $project: { _id: 0, sumStars: 1 } }])
+    .then(company => res.json(company))
+    .catch(err => res.status(400).json('Error: ' + err));
+});
+
+// @route     GET companies/zipcode/:zipcode
 // @desc      Get all companies with same postnummer
 // @access    Public
-router.route('/postnr/:postnr').get((req, res) => {
-  Company.find({ postnr: req.params.postnr })
+router.route('/zipcode').get((req, res) => {
+  Company.find({ zipcode: req.body.zipcode })
     .limit(5)
     .then(company => res.json(company))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
 // @route     GET companies/name
-// @desc      Get all companies with same name or name that includes
+// @desc      Get all companies with same name or name that includes a substring
 // @access    Public
-router.route('/navn').get((req, res) => {
-  console.log(req.body.navn);
-  Company.find({ navn: req.body.navn })
+
+/* 
+Company.aggregate([
+  { $regexFindAll: { input: '$name', regex: `/${req.body.name}/i` } }
+]) */
+router.route('/name').get((req, res) => {
+  console.log(req.body.name);
+
+  //let regexPattern = new RegExp('/Baker/i');
+  //{ $regex: regexPattern }
+
+  Company.find({ Name: new RegExp('Baker') })
     .limit(5)
     .then(company => res.json(company))
     .catch(err => res.status(400).json('Error: ' + err));

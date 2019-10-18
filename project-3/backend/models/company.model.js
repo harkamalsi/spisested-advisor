@@ -2,25 +2,8 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
+// We need numberOfRatings and sumStars to update those values in database
 const companySchema = new Schema({
-  name: {
-    type: String
-  },
-  address: {
-    type: String
-  },
-  zipcode: {
-    type: Number
-  },
-  city: {
-    type: String
-  },
-  coordinates: {
-    type: Array
-  },
-  smileys: {
-    type: Array
-  },
   numberOfRatings: {
     type: Number
   },
