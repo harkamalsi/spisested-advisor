@@ -29,11 +29,11 @@ router.route('/').get((req, res) => {
 // @route     PUT companies/:id
 // @desc      Give rating and increment numberOfRatings automatically
 // @access    Public
-router.route('/:id').put((req, res) => {
+router.route('/company/giverating').put((req, res) => {
   const sumStars = req.body.sumStars;
 
   Company.findByIdAndUpdate(
-    req.params.id,
+    req.body.id,
     { $inc: { numberOfRatings: 1, sumStars } },
     { new: true }
     // { new: true } makes sure to return an obejct so it can be passed as a response
@@ -46,24 +46,7 @@ router.route('/:id').put((req, res) => {
 // @desc      Get all cities
 // @access    Public
 router.route('/cities').get((req, res) => {
-  //$project: { _id: 0, city: 1 }
   Company.aggregate([{ $group: { _id: null, cities: { $addToSet: '$city' } } }])
-    .limit(5)
-    .then(company => res.json(company))
-    .catch(err => res.status(400).json('Error: ' + err));
-});
-
-router.route('/sumstars').get((req, res) => {
-  Company.aggregate([{ $project: { _id: 0, sumStars: 1 } }])
-    .then(company => res.json(company))
-    .catch(err => res.status(400).json('Error: ' + err));
-});
-
-// @route     GET companies/zipcode/:zipcode
-// @desc      Get all companies with same postnummer
-// @access    Public
-router.route('/zipcode').get((req, res) => {
-  Company.find({ zipcode: req.body.zipcode })
     .limit(5)
     .then(company => res.json(company))
     .catch(err => res.status(400).json('Error: ' + err));
@@ -72,11 +55,6 @@ router.route('/zipcode').get((req, res) => {
 // @route     GET companies/name
 // @desc      Get all companies with same name or name that includes a substring
 // @access    Public
-
-/* 
-Company.aggregate([
-  { $regexFindAll: { input: '$name', regex: `/${req.body.name}/i` } }
-]) */
 router.route('/name').get((req, res) => {
   let name = req.body.name;
 
@@ -90,7 +68,6 @@ router.route('/name').get((req, res) => {
 // @desc      Get companies with given smiley grade(s) given at last review
 // @access    Public
 router.route('/smileys').get((req, res) => {
-  console.log(req.body.smileys);
   let smileysArr = req.body.smileys;
 
   Company.find({ 'smileys.0.grade': { $in: smileysArr } })
