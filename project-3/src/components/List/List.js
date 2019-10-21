@@ -31,21 +31,26 @@ import "./List.css";
 */
 const List = props => {
   const [expandedRowId, setExpandedRow] = useState(null);
+
   //Logic to expand selected row (Can be used for test)
   function handleExpanedRow(id) {
     if (expandedRowId === id) return null;
     return id;
   }
+
   //update selected row to be expanded
   function updateExpandedRow(id) {
     setExpandedRow(handleExpanedRow(id));
   }
+
   function saveReview(id, starValue) {
     //logic for comunicating with API
     console.log(id, starValue);
   }
+
   function handleNextClick() {}
   function handlePreviousClick() {}
+  console.log(props.listRawData)
   let rows = props.listRawData.map(row => (
     <ListRow
       key={row.id}

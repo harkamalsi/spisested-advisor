@@ -2,6 +2,11 @@ import React from "react";
 import "./App.css";
 import List from "././components/List/List.js";
 import Searchbar from "././components/Searchbar/Searchbar.js";
+import { getResturants, getResturantsError, getResturantsPending } from "./reducers";
+
+import { connect } from 'react-redux';
+import { bindActionCreators} from 'redux';
+import fetchResturants from './containers/fetchResturants';
 
 const data = [
   {
@@ -116,15 +121,42 @@ const data = [
   }
 ];
 
-function App() {
+
+let id = 0;
+function App(props) {    
+
+  console.log(props.resturants);
+  if (id == 0){
+    id++;
+    props.fetchResturants();
+  }
+
+  console.log(props.resturants);
+
+  
   return (
     <div className="App">
       <Searchbar></Searchbar>
       <div className="List">
-        <List listRawData={data} totalPages={112}></List>
+        <List listRawData={props.resturants} totalPages={112}></List>
       </div>
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = state => ({
+  resturants: getResturants(state),
+  error: getResturantsError(state),
+  pending: getResturantsPending(state)
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  fetchResturants: fetchResturants
+}, dispatch)
+
+
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

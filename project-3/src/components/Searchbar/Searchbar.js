@@ -453,7 +453,7 @@ const Searchbar = props => {
     />
   );
   useEffect(() => {
-    fetch("http://localhost:5000/companies/cities")
+    fetch("http://10.22.15.83:5000/companies/cities")
       .then(res => res.json())
       .then(
         result => {

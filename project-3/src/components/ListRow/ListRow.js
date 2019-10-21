@@ -75,10 +75,10 @@ const ListRow = props => {
   function onStarHoverOut() {
     setRating(0);
   }
-  function formatSmileys(smileyString) {
+   function formatSmileys(smileys) {
     //Split string by ".", map the result array into an array of Objects with smileys with relative years.
     // It then sortes the array by the year and finally maps the array into an array of Smiley component
-    return smileyString
+    /*return  smileyString
       .split(".")
       .map(review => {
         let tmp = review.split("-");
@@ -88,19 +88,19 @@ const ListRow = props => {
           smiley: parseInt(tmp[1])
         };
       })
-      .sort((a, b) => (a.year >= b.year ? 1 : -1))
-      .map(review => (
+      .sort((a, b) => (a.year >= b.year ? 1 : -1)) */
+      return smileys.map(smiley => (
         <Smiley
-          key={review.key}
-          value={review.smiley}
-          year={review.year}
+          key={smiley.date}
+          value={smiley.grade}
+          year={smiley.date.substring(4)}
         ></Smiley>
       ));
   }
-
+ 
   let rowClassType = null;
   let extraInformation = null;
-  let stars = (row.sumStars / row.numberOfRatings).toFixed(2);
+  let stars =(row.numberOfRatings===0 ? 0 : (row.sumStars / row.numberOfRatings).toFixed(2));
 
   //If prop is true, set rowClassType to expanded Row and then render an expanded row.
   if (props.isExpanded) {
