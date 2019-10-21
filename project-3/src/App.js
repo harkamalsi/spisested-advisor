@@ -128,7 +128,7 @@ function App(props) {
   console.log(props.resturants);
   if (id == 0){
     id++;
-    props.fetchResturants();
+    props.fetchResturants("name");
   }
 
   console.log(props.resturants);

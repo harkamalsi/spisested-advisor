@@ -1,9 +1,9 @@
-import {FETCH_RESTURANTS_SUCCESS, FETCH_RESTURANTS_PENDING, FETCH_RESTURANTS_ERROR, fetchResturantsPending, fetchResturantsSuccess, fetchResturantsError} from '../actions/index';
+import {fetchResturantsPending, fetchResturantsSuccess, fetchResturantsError} from '../actions/index';
 
-const fetchResturants = () => {
+const fetchResturants = (query="") => {
     return dispatch => {
         dispatch(fetchResturantsPending());
-        fetch('http://10.22.15.83:5000/companies/?name=mcDonalds')
+        fetch('http://localhost:5000/companies/'+query.toString())
         .then(res => res.json())
         .then(res => {
             console.log(res);

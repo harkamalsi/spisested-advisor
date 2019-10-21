@@ -422,12 +422,15 @@ const cities = [
   "Fjerdingby",
   "Kleppestø"
 ];
+
 const cityOptions = cities.map(city => ({ value: city, label: city }));
+
 const smileyOptions = [
   { value: "0", label: "Smil" },
   { value: "2", label: "Nøytral" },
   { value: "3", label: "Sur" }
 ];
+
 const sortOptions = [
   { value: "NAME_AZ", label: "Navn A-Å" },
   { value: "NAME_ZA", label: "Navn Å-A" },
@@ -452,8 +455,9 @@ const Searchbar = props => {
       alt="Magnifying Glass"
     />
   );
+
   useEffect(() => {
-    fetch("http://10.22.15.83:5000/companies/cities")
+    fetch("http://localhost:5000/companies/cities")
       .then(res => res.json())
       .then(
         result => {
@@ -465,6 +469,7 @@ const Searchbar = props => {
         }
       );
   }, []);
+
   //Called on click of the search button
   function handleSearch() {
     let parameters =
@@ -477,7 +482,7 @@ const Searchbar = props => {
       "&smileys=" +
       smileys;
     console.log(parameters);
-    fetch("http://localhost:5000/companies/NAME_AZ")
+    fetch("http://localhost:5000/companies/?"+parameters)
       .then(res => res.json())
       .then(
         result => {
@@ -493,6 +498,7 @@ const Searchbar = props => {
   function handleTextChange(event) {
     setName(event.target.value);
   }
+
   //Called when more filters button is clicked, toogles the expand state of the searchbar
   function handleFiltersClick() {
     setExpand(!isExpanded);
@@ -502,10 +508,12 @@ const Searchbar = props => {
       addSmiley([]);
     }
   }
+
   //Called when a new order is selected
   function handleSelectOrder(selectedOption) {
     setOrder(selectedOption.value);
   }
+
   //Called when a new city is selected
   function handleSelectCity(selectedOption) {
     let tmp = "";
@@ -514,6 +522,7 @@ const Searchbar = props => {
     });
     addCity(tmp);
   }
+
   //Called when a new smiley filter is selected
   function handleSelectSmiley(selectedOption) {
     let tmp = "";
@@ -524,6 +533,7 @@ const Searchbar = props => {
       });
     addSmiley(tmp);
   }
+
   let ButtonText = isExpanded ? "Færre filter" : "Flere filter";
   let extraFilters = null;
   if (isExpanded) {
@@ -558,6 +568,7 @@ const Searchbar = props => {
       </div>
     );
   }
+  
   return (
     <div id="Searchbar" className="Grid">
       <div id="LabelRestaurant" className="Label">
