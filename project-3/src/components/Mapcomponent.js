@@ -28,9 +28,7 @@ const Mapcomponent = (props) => {
     const zoom = 12;
     
     return (
-      
-
-         <Map className='heo' center={coordinates[0]} zoom={zoom} maxZoom={20}>
+         <Map className='heo' center={coordinates[0]} zoom={zoom} maxZoom={16}>
             <TileLayer
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url='https://{s}.tile.osm.org/{z}/{x}/{y}.png'
@@ -53,12 +51,14 @@ const MapMarkers = (props) => {
     let i = 0;
 
     return (
-        
-            <MarkerClusterGroup>
-             {props.coordinates.map(coordinate => <Marker key={i++} position={coordinate}>
-              <Popup>Lat: {coordinate[0]} Long: {coordinate[1]}</Popup>
-          </Marker>)}
-          </MarkerClusterGroup>
+        // React-leaflet
+        // react-leaflet-markercluster
+        <MarkerClusterGroup>
+            {props.coordinates.map(coordinate => 
+            <Marker key={i++} position={coordinate}>
+                <Popup>Lat: {coordinate[0]} Long: {coordinate[1]}</Popup>
+            </Marker>)}
+        </MarkerClusterGroup>
         
     )
 }
