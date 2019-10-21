@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import magnifyingGlass from "./mg.svg";
@@ -452,7 +452,19 @@ const Searchbar = props => {
       alt="Magnifying Glass"
     />
   );
-
+  useEffect(() => {
+    fetch("http://localhost:5000/companies/cities")
+      .then(res => res.json())
+      .then(
+        result => {
+          console.log(result);
+          //cityOptions = result.cities;
+        },
+        error => {
+          console.log(error, "Error while loading cities from server"); //catch an error and throw a fail message
+        }
+      );
+  }, []);
   //Called on click of the search button
   function handleSearch() {
     let parameters =
@@ -465,14 +477,16 @@ const Searchbar = props => {
       "&smileys=" +
       smileys;
     console.log(parameters);
-    fetch("/companies/?" + parameters, {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json; charset=UTF-8"
-      }
-    }).then(response => {
-      console.log(response);
-    });
+    fetch("http://localhost:5000/companies/NAME_AZ")
+      .then(res => res.json())
+      .then(
+        result => {
+          console.log(result);
+        },
+        error => {
+          console.log(error, "Error while loading resultdata from server"); //catch an error and throw a fail message
+        }
+      );
   }
 
   //Called when text into textfield navn changes, updates navn state
@@ -503,10 +517,11 @@ const Searchbar = props => {
   //Called when a new smiley filter is selected
   function handleSelectSmiley(selectedOption) {
     let tmp = "";
-    selectedOption.forEach(element => {
-      tmp = tmp + (tmp.length > 0 ? "-" : "") + element.value;
-      if (element.value === "0") tmp = tmp + "-" + "1";
-    });
+    if (selectedOption !== null)
+      selectedOption.forEach(element => {
+        tmp = tmp + (tmp.length > 0 ? "-" : "") + element.value;
+        if (element.value === "0") tmp = tmp + "-" + "1";
+      });
     addSmiley(tmp);
   }
   let ButtonText = isExpanded ? "Færre filter" : "Flere filter";
