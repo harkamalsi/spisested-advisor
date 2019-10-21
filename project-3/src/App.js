@@ -121,7 +121,7 @@ function App() {
     <div className="App">
       <Searchbar></Searchbar>
       <div className="List">
-        <List listRawData={data} totalPages={112}></List>
+        <List listRawData={null} totalPages={112}></List>
       </div>
     </div>
   );

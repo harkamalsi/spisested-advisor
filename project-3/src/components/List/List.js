@@ -46,16 +46,21 @@ const List = props => {
   }
   function handleNextClick() {}
   function handlePreviousClick() {}
-  let rows = props.listRawData.map(row => (
-    <ListRow
-      key={row.id}
-      id={row.id}
-      rowData={row}
-      handleClick={updateExpandedRow.bind(this)}
-      isExpanded={expandedRowId === row.id}
-      saveReview={saveReview}
-    ></ListRow>
-  ));
+  let rows =
+    props.listRawData === null ? (
+      <h2>Søkeresultater listes her</h2>
+    ) : (
+      props.listRawData.map(row => (
+        <ListRow
+          key={row.id}
+          id={row.id}
+          rowData={row}
+          handleClick={updateExpandedRow.bind(this)}
+          isExpanded={expandedRowId === row.id}
+          saveReview={saveReview}
+        ></ListRow>
+      ))
+    );
   return (
     <ul className="Table">
       <ButtonToolbar id="Toolbar">
