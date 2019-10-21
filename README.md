@@ -1,3 +1,14 @@
+##¤ Pre
+npm install
+
+cd backend => npm install
+
+npm install -g nodemon
+
+nodemon server
+
+
+
 Commits markeres med hvilken issue de bidrar til. 
 
 
