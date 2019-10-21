@@ -68,8 +68,6 @@ router.route('/').get((req, res) => {
     };
   }
 
-  console.log(mongoQuery);
-
   let mongoSortQuery;
 
   if (orderSmileyInt) {
@@ -89,14 +87,15 @@ router.route('/').get((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-// @route     PUT companies/:id
-// @desc      Give rating and increment numberOfRatings automatically
+// @route     PUT companies/giverating
+// @desc      Give rating and increment numberOfRatings automatically for a specific company object
 // @access    Public
-router.route('/:id/:stars').put((req, res) => {
-  let stars = parseInt(req.params.stars);
+router.route('/giverating').put((req, res) => {
+  let id = parseInt(req.body.id);
+  let stars = parseInt(req.body.stars);
 
   Company.findByIdAndUpdate(
-    req.params.id,
+    id,
     { $inc: { numberOfRatings: 1, sumStars: stars } },
     { new: true }
     // { new: true } makes sure to return an obejct so it can be passed as a response
@@ -110,6 +109,7 @@ router.route('/:id/:stars').put((req, res) => {
 // @access    Public
 router.route('/cities').get((req, res) => {
   Company.aggregate([{ $group: { _id: null, cities: { $addToSet: '$city' } } }])
+
     .then(company => res.json(company))
     .catch(err => res.status(400).json('Error: ' + err));
 });
