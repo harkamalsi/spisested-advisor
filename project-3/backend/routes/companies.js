@@ -7,30 +7,84 @@ const Company = require('../models/company.model');
 // @desc      Get all companies with possible sorts and filters on zipcode and city
 // @access    Public
 router.route('/').get((req, res) => {
-  let orderInt;
+  let orderNameInt;
+  let orderSmileyInt;
+  let apiquery = req.query;
 
-  let orderby = req.body.orderby;
-
-  console.log(orderby);
+  let name = apiquery.name;
+  let orderby = apiquery.orderby;
+  let cities = apiquery.cities;
+  let smileys = apiquery.smileys;
 
   // 1 = ASC, -1 = DESC
-  if (orderby.includes('NAME')) {
-    if (orderby.includes('NAME_AZ')) {
-      orderInt = 1;
-    } else if (orderby.includes('NAME_ZA')) {
-      orderInt = -1;
-    }
-  } else if (orderby.includes('SMILEY')) {
-    if (orderby.includes('SMILEY_ASC')) {
-      orderInt = 1;
-    } else if (orderby.includes('SMILEY_DESC')) {
-      orderInt = -1;
-    }
+  switch (orderby) {
+    case 'NAME_AZ':
+      orderNameInt = 1;
+      break;
+    case 'NAME_ZA':
+      orderNameInt = -1;
+      break;
+    case 'SMILEY_ASC':
+      // [3, 2, 1, 0] = "Sur, nøytral, smil, smil"
+      // Because of how mongoDb works, we must provide with -1
+      orderSmileyInt = -1;
+      break;
+    case 'SMILEY_DESC':
+      // [0, 1, 2, 3] = "Smil, smil, nøytral, Sur"
+      // Because of how mongoDb works, we must provide with 1
+      orderSmileyInt = 1;
+      break;
+    default:
+      // Default case is NAME_AZ
+      orderNameInt = 1;
   }
 
-  Company.find({ name: { $exists: true } })
-    .sort({ name: orderInt })
-    .limit(5)
+  let mongoQuery;
+
+  if (name && !cities && !smileys) {
+    mongoQuery = {
+      name: new RegExp(name, 'i')
+    };
+  } else if (!cities && !smileys) {
+    mongoQuery = {
+      name: new RegExp(name, 'i')
+    };
+  } else if (!cities) {
+    mongoQuery = {
+      name: new RegExp(name, 'i'),
+      'smileys.0.grade': { $in: smileys.split('-').map(Number) }
+    };
+  } else if (!smileys) {
+    mongoQuery = {
+      name: new RegExp(name, 'i'),
+      city: { $in: cities.split('-') }
+    };
+  } else {
+    //(name || cities || smileys)
+    mongoQuery = {
+      name: new RegExp(name, 'i'),
+      city: { $in: cities.split('-') },
+      'smileys.0.grade': { $in: smileys.split('-').map(Number) }
+    };
+  }
+
+  console.log(mongoQuery);
+
+  let mongoSortQuery;
+
+  if (orderSmileyInt) {
+    // 1 = ASC, -1 = DESC
+    mongoSortQuery = { 'smileys.0.grade': orderSmileyInt };
+  } else {
+    // 1 = ASC, -1 = DESC
+    mongoSortQuery = { name: orderNameInt };
+  }
+
+  console.log(mongoSortQuery);
+
+  Company.find(mongoQuery)
+    .sort(mongoSortQuery)
+    .limit(10)
     .then(companies => res.json(companies))
     .catch(err => res.status(400).json('Error: ' + err));
 });
@@ -56,7 +110,6 @@ router.route('/:id/:stars').put((req, res) => {
 // @access    Public
 router.route('/cities').get((req, res) => {
   Company.aggregate([{ $group: { _id: null, cities: { $addToSet: '$city' } } }])
-    .limit(5)
     .then(company => res.json(company))
     .catch(err => res.status(400).json('Error: ' + err));
 });
