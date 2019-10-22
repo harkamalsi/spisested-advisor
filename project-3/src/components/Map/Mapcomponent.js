@@ -10,13 +10,20 @@ const Mapcomponent = (props) => {
 
     console.log("mapcomponent updated");
 
-    let coordinate = props.coordinate;
+    let coordinate = props.coordinates;
+
     let coordinates = [[63.415517, 10.404421], [63.41, 10.4], [63.43, 10.39],
     [63.43, 10.43], [63.42, 10.405], [63.40159, 10.4156]
     ]; 
+    if (coordinate != ""){
+        console.log(coordinate[0].coordinates);
+        coordinates = [coordinate[0].coordinates.map(coordinate => parseFloat(coordinate))]
+    }
 
-    console.log(coordinate);
 
+
+
+    
     /* if (coordinate !== undefined) { 
         coordinates.push(coordinate.split(", ").map((element) => parseFloat(element)));
         console.log(coordinates);
