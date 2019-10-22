@@ -4,6 +4,12 @@ import makeAnimated from "react-select/animated";
 import magnifyingGlass from "./mg.svg";
 import "./Searchbar.css";
 
+import fetchResturants from '../../containers/fetchResturants';
+import { bindActionCreators} from 'redux';
+import { connect } from 'react-redux';
+
+
+
 const smileyOptions = [
   { value: "0", label: "Smil" },
   { value: "2", label: "Nøytral" },
@@ -53,6 +59,7 @@ const Searchbar = props => {
 
   //Called on click of the search button
   function handleSearch() {
+    let url = 'http://localhost:5000/companies/?';
     let parameters =
       "name=" +
       name +
@@ -63,17 +70,10 @@ const Searchbar = props => {
       "&smileys=" +
       smileys;
     console.log(parameters);
-    fetch("http://localhost:5000/companies/?" + parameters)
-      .then(res => res.json())
-      .then(
-        result => {
-          console.log(result);
-          //here it updates the store with the fetched data.
-        },
-        error => {
-          console.log(error, "Error while loading resultdata from server"); //catch an error and throw a fail message
-        }
-      );
+    let query = url + parameters;
+    console.log(query);
+    //props.storeQuery(query);
+    props.fetchResturants(query);
   }
 
   //Called when text into textfield navn changes, updates navn state
@@ -192,4 +192,9 @@ const Searchbar = props => {
   );
 };
 
-export default Searchbar;
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  fetchResturants: fetchResturants
+}, dispatch)
+
+export default connect(null, mapDispatchToProps)(Searchbar);

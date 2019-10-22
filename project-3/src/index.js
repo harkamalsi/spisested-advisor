@@ -9,14 +9,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Provider } from 'react-redux';
 import { applyMiddleware, createStore, compose } from 'redux';
 import thunk from 'redux-thunk'
-import fetchDataReducer from './reducers/index';
+import fetchResturantsReducer from './reducers/fetchResturantsReducer';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 //const middleWares = [thunk]
 const enhancer = composeEnhancers(applyMiddleware(...[thunk]));
 
 const store = createStore(
-    fetchDataReducer,
+    fetchResturantsReducer,
   //  applyMiddleware(...middleWares),
   enhancer
 ); 

@@ -2,11 +2,9 @@ import React from "react";
 import "./App.css";
 import List from "././components/List/List.js";
 import Searchbar from "././components/Searchbar/Searchbar.js";
-import { getResturants, getResturantsError, getResturantsPending } from "./reducers";
+import { getResturants, getResturantsError, getResturantsPending } from "./reducers/fetchResturantsReducer";
 
 import { connect } from 'react-redux';
-import { bindActionCreators} from 'redux';
-import fetchResturants from './containers/fetchResturants';
 
 const data = [
   {
@@ -122,18 +120,8 @@ const data = [
 ];
 
 
-let id = 0;
-function App(props) {    
-
-  console.log(props.resturants);
-  if (id == 0){
-    id++;
-    props.fetchResturants("name");
-  }
-
-  console.log(props.resturants);
-
-  
+function App(props) {      
+  console.log(props.resturants)
   return (
     <div className="App">
       <Searchbar></Searchbar>
@@ -150,13 +138,8 @@ const mapStateToProps = state => ({
   pending: getResturantsPending(state)
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-  fetchResturants: fetchResturants
-}, dispatch)
-
-
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(App);

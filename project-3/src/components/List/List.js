@@ -3,6 +3,12 @@ import ListRow from "../ListRow/ListRow.js";
 import { Button } from "react-bootstrap";
 import { ButtonToolbar } from "react-bootstrap";
 import "./List.css";
+
+
+import { getQuery } from "../../reducers/fetchResturantsReducer";
+import fetchResturants from '../../containers/fetchResturants';
+import { bindActionCreators} from 'redux';
+import { connect } from 'react-redux';
 /*
     Renders a List like component with expandable rows.
 
@@ -48,10 +54,19 @@ const List = props => {
     console.log(id, starValue);
   }
 
-  function handleNextClick() {}
-  function handlePreviousClick() {}
+  function handleNextClick() {
+    props.fetchResturants(props.query);
+  }
+
+  function handlePreviousClick() {
+
+  }
+
+
+
+  console.log(props.listRawData)
   let rows =
-    props.listRawData === null ? (
+    props.listRawData === undefined ? (
       <h2>Søkeresultater listes her</h2>
     ) : (
       props.listRawData.map(row => (
@@ -89,4 +104,14 @@ const List = props => {
   );
 };
 
-export default List;
+
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  fetchResturants: fetchResturants
+}, dispatch)
+
+const mapStateToProps = state => ({
+  query: getQuery(state)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(List);

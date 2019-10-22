@@ -3,14 +3,13 @@ import {fetchResturantsPending, fetchResturantsSuccess, fetchResturantsError} fr
 const fetchResturants = (query="") => {
     return dispatch => {
         dispatch(fetchResturantsPending());
-        fetch('http://localhost:5000/companies/'+query.toString())
+        fetch(query)
         .then(res => res.json())
         .then(res => {
-            console.log(res);
             if (res.error){
                 throw (res.error);
             } 
-            dispatch(fetchResturantsSuccess(res));
+            dispatch(fetchResturantsSuccess(res, query));
             return res;
         })
         .catch(error=> {
