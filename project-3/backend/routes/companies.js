@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-var ObjectId = require('mongodb').ObjectId;
 const Company = require('../models/company.model');
 
 const getQuery = (apiquery, locationsRoute) => {
