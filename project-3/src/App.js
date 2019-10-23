@@ -126,7 +126,7 @@ function App(props) {
     <div className="App">
       <Searchbar></Searchbar>
       <div className="map">
-        <Map coordinates={props.resturants}></Map>
+        <Map resturants={props.resturants}></Map>
       </div>
       <div className="List">
         <List listRawData={props.resturants} totalPages={112}></List>
