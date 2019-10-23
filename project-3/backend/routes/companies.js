@@ -91,8 +91,10 @@ const getQuery = (apiquery, locationsRoute) => {
         coordinates: 1
       }
     };
-
-    return [mongoQuery, projectQuery];
+    let searchQuery ={
+      $sort: mongoSearchSortQuery
+    };
+    return [mongoQuery,searchQuery, projectQuery];
   }
 
   return [mongoQuery, mongoSearchSortQuery, mongoSkipInt];
@@ -131,7 +133,7 @@ router.route('/locations').get((req, res) => {
 // @desc      Give rating and increment numberOfRatings automatically for a specific company object
 // @access    Public
 router.route('/giverating').put((req, res) => {
-  let id = parseInt(req.body.id);
+  let id = req.body.id;
   let stars = parseInt(req.body.stars);
 
   Company.findByIdAndUpdate(

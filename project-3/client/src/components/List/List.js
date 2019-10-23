@@ -76,7 +76,7 @@ const List = props => {
     //logic for comunicating with API
     console.log(id, starValue);
     let body = { id, stars: starValue };
-    fetch("/giverating", {
+    fetch("http://localhost:5000/companies/giverating", {
       method: "PUT",
       body: JSON.stringify(body),
       headers: {
@@ -93,11 +93,11 @@ const List = props => {
     ) : (
       props.listRawData.map(row => (
         <ListRow
-          key={row.id}
-          id={row.id}
+          key={row._id}
+          id={row._id}
           rowData={row}
           handleClick={updateExpandedRow.bind(this)}
-          isExpanded={expandedRowId === row.id}
+          isExpanded={expandedRowId === row._id}
           saveReview={saveReview}
         ></ListRow>
       ))

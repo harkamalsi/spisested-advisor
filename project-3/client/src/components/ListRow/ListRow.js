@@ -11,7 +11,7 @@ const ListRow = props => {
   const [rating, setRating] = useState(0);
   const [ratingGiven, setGivenRating] = useState(false);
   let row = props.rowData;
-  let id = row.id;
+  let id = row._id;
   let smileysComponents = formatSmileys(row.smileys);
 
 
@@ -46,7 +46,7 @@ const ListRow = props => {
           <p className="Text">Resultat fra forrige inspeksjoner: </p>
         </div>
         <div id="OldSmileys" className="Cell">
-          {smileysComponents.slice(0, -1)}
+          {smileysComponents.slice(1, 7)}
         </div>
       </div>
     );
@@ -102,7 +102,7 @@ const ListRow = props => {
         {row.city}
       </div>
       <div id="SmileyCell" className="Cell">
-        {smileysComponents[smileysComponents.length - 1]}
+        {smileysComponents[0]}
       </div>
       <div id="ReviewCell" className="Cell">
         <p className="Text"> {stars} </p>
