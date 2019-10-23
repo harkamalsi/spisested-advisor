@@ -54,6 +54,7 @@
 }
 #FilterCities {
   grid-area: 2/ 2/ 2/3;
+  z-index: 9999;
 }
 #FilterCitiesbar {
   width: 80%;

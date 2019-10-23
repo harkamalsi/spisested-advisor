@@ -9,3 +9,11 @@
   height: 80vh;
   align-self: flex-end;
 }
+
+.resultContainer {
+  display: flex;
+}
+
+.map {
+  width: 50%;
+}

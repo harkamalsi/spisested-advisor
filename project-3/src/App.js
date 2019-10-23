@@ -125,11 +125,13 @@ function App(props) {
   return (
     <div className="App">
       <Searchbar></Searchbar>
-      <div className="map">
-        <Map resturants={props.resturants}></Map>
-      </div>
-      <div className="List">
-        <List listRawData={props.resturants} totalPages={112}></List>
+      <div className="resultContainer">
+        <div className="map">
+          <Map resturants={props.resturants}></Map>
+        </div>
+        <div className="List">
+          <List listRawData={props.resturants} totalPages={112}></List>
+        </div>
       </div>
     </div>
   );
