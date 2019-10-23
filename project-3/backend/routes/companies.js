@@ -80,7 +80,7 @@ const getQuery = (apiquery, locationsRoute) => {
   }
 
   if (page) {
-    mongoSkipInt = parseInt(page * 10);
+    mongoSkipInt = parseInt(page * 20);
   }
 
   if (locationsRoute) {
@@ -108,7 +108,7 @@ router.route('/').get((req, res) => {
   console.log(queries);
 
   Company.aggregate([queries[0], { $sort: queries[1] }, { $skip: queries[2] }])
-    .limit(10)
+    .limit(20)
     .then(companies => res.json(companies))
     .catch(err => res.status(400).json("Error: " + err));
 });

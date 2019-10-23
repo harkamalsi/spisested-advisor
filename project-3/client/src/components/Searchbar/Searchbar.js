@@ -65,7 +65,7 @@ const Searchbar = props => {
     let query =
       "name=" +
       name +
-      "&orderBy=" +
+      "&orderby=" +
       orderBy +
       "&cities=" +
       cities +

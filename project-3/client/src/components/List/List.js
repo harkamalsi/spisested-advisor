@@ -1,7 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ListRow from "../ListRow/ListRow.js";
-import { Button } from "react-bootstrap";
-import { ButtonToolbar } from "react-bootstrap";
 import "./List.css";
 
 
@@ -15,9 +13,6 @@ import { connect } from 'react-redux';
     Props:
     {listRawData} = A list of object with raw data (needs formatting)
         each element of the array will be displayed as a row.
-    {totalPages} = The number of the total pages of the list
-    {onPreviousClick} = Triggers when Previous button clicked
-    {onNextClick} = Triggers when Next button clicked
     {saveReview} = Syncronises user review with backend
 
     {listRawData} =(Array) [
@@ -37,6 +32,34 @@ import { connect } from 'react-redux';
 */
 const List = props => {
   const [expandedRowId, setExpandedRow] = useState(null);
+  const [hasMoreData, setMoreData] = useState(true);
+
+
+  useEffect(() => {
+    const table = document.getElementById("Table");
+
+    table.addEventListener("scroll", e => {
+      const el = e.target;
+      //If the height of the table + the dynamic height of the scrolling cursor
+      // is equal to the total scrollable height of the table, bottom is reached and
+      // new data must be requested
+      if (el.scrollTop + el.clientHeight === el.scrollHeight) {
+        fetchMoreData();
+      }
+    });
+  }, []);
+
+  function fetchMoreData() {
+    console.log("buttom reaced");
+    console.log("Fetch more list items!");
+    //TODO: Fetch routine with stored query and append fetched data to already stored.
+    if (hasMoreData) {
+      //fetch data from server
+      //if data is empty --> no more data on server --> set hasMoreData to false
+      if (null) setMoreData(false);
+      //so it doesn't send unnecessary fetch requests
+    }
+  }
 
   //Logic to expand selected row (Can be used for test)
   function handleExpanedRow(id) {
@@ -52,16 +75,15 @@ const List = props => {
   function saveReview(id, starValue) {
     //logic for comunicating with API
     console.log(id, starValue);
+    let body = { id, stars: starValue };
+    fetch("/giverating", {
+      method: "PUT",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      }
+    });
   }
-
-  function handleNextClick() {
-    props.fetchResturants(props.query);
-  }
-
-  function handlePreviousClick() {
-
-  }
-
 
 
   console.log(props.listRawData)
@@ -81,26 +103,7 @@ const List = props => {
       ))
     );
   return (
-    <ul className="Table">
-      <ButtonToolbar id="Toolbar">
-        <Button
-          id="Previous"
-          variant="outline-secondary"
-          onClick={handlePreviousClick.bind(this)}
-        >
-          Forrige
-        </Button>{" "}
-        <p id="SideNr">Side nr 1/{props.totalPages}</p>
-        <Button
-          id="Next"
-          variant="outline-secondary"
-          onClick={handleNextClick.bind(this)}
-        >
-          Neste
-        </Button>
-      </ButtonToolbar>
-      <div id="Rows">{rows}</div>
-    </ul>
+    <ul id="Table">{rows}</ul>
   );
 };
 

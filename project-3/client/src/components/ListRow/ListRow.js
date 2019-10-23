@@ -14,15 +14,6 @@ const ListRow = props => {
   let id = row.id;
   let smileysComponents = formatSmileys(row.smileys);
 
-  /*
-  //Fetches extra information for an expanded row
-  function fetchExtraInformation(id) {
-    return {
-      addr2: "Bakkeveien 23",
-      postcode: "7012",
-      totalRating: "4.33"
-    };
-  }*/
 
   //format extra information in JSX format
   function formatExtraInformation() {
@@ -78,17 +69,7 @@ const ListRow = props => {
    function formatSmileys(smileys) {
     //Split string by ".", map the result array into an array of Objects with smileys with relative years.
     // It then sortes the array by the year and finally maps the array into an array of Smiley component
-    /*return  smileyString
-      .split(".")
-      .map(review => {
-        let tmp = review.split("-");
-        return {
-          key: tmp[0],
-          year: tmp[0].substring(4),
-          smiley: parseInt(tmp[1])
-        };
-      })
-      .sort((a, b) => (a.year >= b.year ? 1 : -1)) */
+   
       return smileys.map(smiley => (
         <Smiley
           key={smiley.date}

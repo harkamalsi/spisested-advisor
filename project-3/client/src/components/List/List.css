@@ -1,4 +1,5 @@
-.Table {
+#Table {
+  margin: 0px;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -6,18 +7,5 @@
   font-size: 15px;
   min-width: 460px;
   min-width: 200px;
-}
-#Rows {
   overflow: scroll;
-}
-#Toolbar {
-  align-self: flex-end;
-  display: flex;
-  flex-direction: row;
-  margin: 2px 20px 2px 20px;
-}
-#SideNr {
-  align-self: center;
-  font-size: 15px;
-  margin: 0px 5px 0px 5px;
 }
