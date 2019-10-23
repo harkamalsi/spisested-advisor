@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 
 
 function App(props) {      
-  console.log(props.resturants)
   return (
     <div className="App">
       <Searchbar></Searchbar>

@@ -7,6 +7,8 @@ import { getQuery } from "../../reducers/fetchResturantsReducer";
 import fetchResturants from '../../fetchDataAction/fetchResturants';
 import { bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
+
+
 /*
     Renders a List like component with expandable rows.
 
@@ -43,7 +45,7 @@ const List = props => {
       //If the height of the table + the dynamic height of the scrolling cursor
       // is equal to the total scrollable height of the table, bottom is reached and
       // new data must be requested
-      if (el.scrollTop + el.clientHeight === el.scrollHeight) {
+      if (el.scrollTop + el.clientHeight + 1 > el.scrollHeight) {
         fetchMoreData();
       }
     });
@@ -52,13 +54,16 @@ const List = props => {
   function fetchMoreData() {
     console.log("buttom reaced");
     console.log("Fetch more list items!");
-    //TODO: Fetch routine with stored query and append fetched data to already stored.
-    if (hasMoreData) {
+    //TODO: Fetch routine with stored query and append fetched data to already stored
+    console.log(typeof(props.query))
+    props.fetchResturants('http://localhost:5000/companies/?', props.query, false);
+
+   // if (hasMoreData) {
       //fetch data from server
       //if data is empty --> no more data on server --> set hasMoreData to false
-      if (null) setMoreData(false);
+     // if (null) setMoreData(false);
       //so it doesn't send unnecessary fetch requests
-    }
+   // }
   }
 
   //Logic to expand selected row (Can be used for test)
@@ -107,14 +112,14 @@ const List = props => {
   );
 };
 
-
+const mapStateToProps = state => ({
+   query: getQuery(state)
+});
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   fetchResturants: fetchResturants
 }, dispatch)
 
-const mapStateToProps = state => ({
-  query: getQuery(state)
-});
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(List);

@@ -2,6 +2,7 @@ import {fetchResturantsPending, fetchResturantsSuccess, fetchResturantsError, fe
 
 const fetchResturants = (endpoint, query, newQuery=false) => {
 
+    console.log(query)
     return dispatch => {
         dispatch(fetchResturantsPending(newQuery));
         fetch(endpoint + query)
@@ -13,6 +14,7 @@ const fetchResturants = (endpoint, query, newQuery=false) => {
             if (endpoint.includes("locations")){
                 dispatch(fetchResturantLocations(res));
             } else {
+                console.log(query)
                 dispatch(fetchResturantsSuccess(res, query));
             }
             return res;

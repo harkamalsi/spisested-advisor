@@ -5,7 +5,8 @@ const initialState = {
     resturants: [],
     resturantLocations: [],
     error: null,
-    query: ""
+    query: "",
+    page: 0
 }
 
 
@@ -17,6 +18,7 @@ const fetchResturantsReducer = (state = initialState, action) => {
                     ...state,
                     pending: true,
                     resturants: [],
+                    page: 0
                 };
             } else {
                 return {
@@ -25,12 +27,13 @@ const fetchResturantsReducer = (state = initialState, action) => {
                 };
             };
         case FETCH_RESTURANTS_SUCCESS:
+                console.log(action.query)
                 return {
                     ...state,
                     pending: false,
-                    resturants: action.resturants.concat(state.resturants),
-                    query: action.query
-
+                    resturants: state.resturants.concat(action.resturants),
+                    query: action.query,
+                    page: state.page + 1
                 };
         case FETCH_RESTURANTS_ERROR:
             return {
@@ -49,7 +52,7 @@ const fetchResturantsReducer = (state = initialState, action) => {
     }
 }
 
-
+export const getPage = state => state.page;
 export const getResturants = state => state.resturants;
 export const getResturantLocations = state => state.resturantLocations;
 export const getResturantsPending = state => state.pending;

@@ -70,9 +70,11 @@ const Searchbar = props => {
       "&cities=" +
       cities +
       "&smileys=" +
-      smileys;
+      smileys + 
+      "&page=" + 
+      0;
+      props.fetchResturants(endpointLocations, query);
     props.fetchResturants(endpointResturants, query, true); // sett newSearch to true, in order to empty result set in store
-    props.fetchResturants(endpointLocations, query);
   }
 
   //Called when text into textfield navn changes, updates navn state
