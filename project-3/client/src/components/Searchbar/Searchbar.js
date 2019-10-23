@@ -4,7 +4,7 @@ import makeAnimated from "react-select/animated";
 import magnifyingGlass from "./mg.svg";
 import "./Searchbar.css";
 
-import fetchResturants from '../../containers/fetchResturants';
+import fetchResturants from '../../fetchDataAction/fetchResturants';
 import { bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
 

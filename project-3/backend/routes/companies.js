@@ -1,20 +1,20 @@
 const express = require("express");
 const router = express.Router();
+const Company = require('../models/company.model');
 
-const Company = require("../models/company.model");
+const getQuery = (apiquery, locationsRoute) => {
+  // apiquery is an request object
+  // locationsRoute is a boolean
 
-// @route     GET companies
-// @desc      Get all companies with possible sorts and filters on zipcode and city
-// @access    Public
-router.route("/").get((req, res) => {
   let orderNameInt;
   let orderSmileyInt;
-  let apiquery = req.query;
 
   let name = apiquery.name;
   let orderby = apiquery.orderby;
   let cities = apiquery.cities;
   let smileys = apiquery.smileys;
+
+  let page = apiquery.page;
 
   // 1 = ASC, -1 = DESC
   switch (orderby) {
@@ -40,63 +40,102 @@ router.route("/").get((req, res) => {
   }
 
   let mongoQuery;
-
-  if (name && !cities && !smileys) {
+  if (!cities && !smileys) {
     mongoQuery = {
-      name: new RegExp(name, "i")
-    };
-  } else if (!cities && !smileys) {
-    mongoQuery = {
-      name: new RegExp(name, "i")
+      // Finds even if name is blank
+      $match: { name: new RegExp(name, 'i') }
     };
   } else if (!cities) {
     mongoQuery = {
-      name: new RegExp(name, "i"),
-      "smileys.0.grade": { $in: smileys.split("-").map(Number) }
+      $match: {
+        name: new RegExp(name, 'i'),
+        'smileys.0.grade': { $in: smileys.split('-').map(Number) }
+      }
     };
   } else if (!smileys) {
     mongoQuery = {
-      name: new RegExp(name, "i"),
-      city: { $in: cities.split("-") }
+      $match: { name: new RegExp(name, 'i'), city: { $in: cities.split('-') } }
     };
   } else {
-    //(name || cities || smileys)
+    //(name || (cities && smileys))
     mongoQuery = {
-      name: new RegExp(name, "i"),
-      city: { $in: cities.split("-") },
-      "smileys.0.grade": { $in: smileys.split("-").map(Number) }
+      $match: {
+        name: new RegExp(name, 'i'),
+        city: { $in: cities.split('-') },
+        'smileys.0.grade': { $in: smileys.split('-').map(Number) }
+      }
     };
   }
 
-  console.log(mongoQuery);
-
-  let mongoSortQuery;
+  let mongoSearchSortQuery = {};
+  let mongoPaginationQuery = {};
+  let mongoSkipInt = 0; // Default, skips nothing
 
   if (orderSmileyInt) {
     // 1 = ASC, -1 = DESC
-    mongoSortQuery = { "smileys.0.grade": orderSmileyInt };
+    mongoSearchSortQuery = { 'smileys.0.grade': orderSmileyInt };
   } else {
     // 1 = ASC, -1 = DESC
-    mongoSortQuery = { name: orderNameInt };
+    mongoSearchSortQuery = { name: orderNameInt };
   }
 
-  console.log(mongoSortQuery);
+  if (page) {
+    mongoSkipInt = parseInt(page * 10);
+  }
 
-  Company.find(mongoQuery)
-    .sort(mongoSortQuery)
+  if (locationsRoute) {
+    let projectQuery = {
+      $project: {
+        _id: 0,
+        name: 1,
+        coordinates: 1
+      }
+    };
+
+    return [mongoQuery, projectQuery];
+  }
+
+  return [mongoQuery, mongoSearchSortQuery, mongoSkipInt];
+};
+
+// @route     GET companies
+// @desc      Get all companies with possible sorts and filters on zipcode and city
+// @access    Public
+router.route('/').get((req, res) => {
+  // queries = [mongoQuery, mongoSearchSortQuery, mongoSkipInt]
+  let queries = getQuery(req.query, false);
+
+  console.log(queries);
+
+  Company.aggregate([queries[0], { $sort: queries[1] }, { $skip: queries[2] }])
     .limit(10)
     .then(companies => res.json(companies))
     .catch(err => res.status(400).json("Error: " + err));
 });
 
-// @route     PUT companies/:id
-// @desc      Give rating and increment numberOfRatings automatically
+// @route     GET mapData
+// @desc      Get all mapData: names and coordinates
 // @access    Public
-router.route("/:id/:stars").put((req, res) => {
-  let stars = parseInt(req.params.stars);
+router.route('/locations').get((req, res) => {
+  // queries = [mongoQuery, projectQuery]
+  let queries = getQuery(req.query, true);
+
+  console.log(queries);
+
+  Company.aggregate(queries)
+    .then(companies => res.json(companies))
+    .catch(err => res.status(400).json('Error: ' + err));
+});
+
+// @route     PUT companies/giverating
+// @desc      Give rating and increment numberOfRatings automatically for a specific company object
+// @access    Public
+router.route('/giverating').put((req, res) => {
+  let id = parseInt(req.body.id);
+  let stars = parseInt(req.body.stars);
 
   Company.findByIdAndUpdate(
-    req.params.id,
+    id,
     { $inc: { numberOfRatings: 1, sumStars: stars } },
     { new: true }
     // { new: true } makes sure to return an obejct so it can be passed as a response
@@ -110,29 +149,6 @@ router.route("/:id/:stars").put((req, res) => {
 // @access    Public
 router.route("/cities").get((req, res) => {
   Company.aggregate([{ $group: { _id: null, cities: { $addToSet: "$city" } } }])
-    .then(company => res.json(company))
-    .catch(err => res.status(400).json("Error: " + err));
-});
-
-// @route     GET companies/name
-// @desc      Get all companies with same name or name that includes a substring
-// @access    Public
-router.route("/name").get((req, res) => {
-  let name = req.body.name;
-
-  Company.find({ name: new RegExp(name, "i") })
-    .limit(5)
-    .then(company => res.json(company))
-    .catch(err => res.status(400).json("Error: " + err));
-});
-
-// @route     GET companies/smilies
-// @desc      Get companies with given smiley grade(s) given at last review
-// @access    Public
-router.route("/smileys").get((req, res) => {
-  let smileysArr = req.body.smileys;
-
-  Company.find({ "smileys.0.grade": { $in: smileysArr } })
     .then(company => res.json(company))
     .catch(err => res.status(400).json("Error: " + err));
 });

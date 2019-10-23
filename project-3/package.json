@@ -1,49 +1,17 @@
 {
-  "name": "project3",
-  "version": "0.1.0",
-  "private": true,
-  "proxy": "http://localhost:5000/",
-  "dependencies": {
-    "leaflet": "^1.5.1",
-    "leaflet.markercluster": "^1.4.1",
-    "prop-types": "^15.7.2",
-    "react": "^16.10.1",
-    "react-dom": "^16.10.2",
-    "react-leaflet": "^2.4.0",
-    "react-leaflet-markercluster": "^2.0.0-rc3",
-    "react-scripts": "3.2.0",
-    "redux": "^4.0.4",
-    "@material-ui/core": "^4.5.0",
-    "@material-ui/icons": "^4.4.3",
-    "bootstrap": "^4.3.1",
-    "react-bootstrap": "^1.0.0-beta.14",
-    "react-redux": "^7.1.1",
-    "react-select": "^3.0.8",
-    "react-star-rating-component": "^1.4.1",
-    "react-textfield": "0.0.6",
-    "redux-thunk": "^2.3.0",
-    "thunk": "0.0.1",
-    "tubular-react": "^2.0.8"
-  },
+  "name": "project-3",
+  "version": "1.0.0",
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "client": "cd client && npm start",
+    "server": "cd backend && npm start",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
