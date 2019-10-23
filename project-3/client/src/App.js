@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import List from "././components/List/List.js";
 import Searchbar from "././components/Searchbar/Searchbar.js";
-import { getResturants, getResturantsError, getResturantsPending } from "./reducers/fetchResturantsReducer";
+import { getResturants, getResturantsError, getResturantsPending, getResturantLocations } from "./reducers/fetchResturantsReducer";
 import Map from './components/Map/Mapcomponent'
 import { connect } from 'react-redux';
 
@@ -127,11 +127,11 @@ function App(props) {
       <Searchbar></Searchbar>
       <div className="resultContainer">
         <div className="map">
-          <Map resturants={props.resturants}></Map>
+          <Map resturants={props.resturantLocations}></Map>
         </div>
         <div className="List">
-          <List listRawData={props.resturants} totalPages={112}></List>
-        </div>
+          <List listRawData={props.resturants} totalPages={112}></List> 
+       </div>
       </div>
     </div>
   );
@@ -139,6 +139,7 @@ function App(props) {
 
 const mapStateToProps = state => ({
   resturants: getResturants(state),
+  resturantLocations: getResturantLocations(state),
   error: getResturantsError(state),
   pending: getResturantsPending(state)
 });

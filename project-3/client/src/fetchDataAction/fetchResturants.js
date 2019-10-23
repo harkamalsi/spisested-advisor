@@ -1,16 +1,23 @@
-import {fetchResturantsPending, fetchResturantsSuccess, fetchResturantsError} from '../actions/index';
+import {fetchResturantsPending, fetchResturantsSuccess, fetchResturantsError, fetchResturantLocations} from '../actions/index';
 
-const fetchResturants = (query="") => {
+const fetchResturants = (endpoint, query) => {
+
+    
     return dispatch => {
         dispatch(fetchResturantsPending());
-        fetch(query)
+        fetch(endpoint + query)
         .then(res => res.json())
         .then(res => {
             if (res.error){
                 throw (res.error);
             } 
-            dispatch(fetchResturantsSuccess(res, query));
+            if (endpoint.includes("locations")){
+                dispatch(fetchResturantLocations(res));
+            } else {
+                dispatch(fetchResturantsSuccess(res, query));
+            }
             return res;
+            
         })
         .catch(error=> {
             dispatch(fetchResturantsError(error));

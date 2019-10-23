@@ -59,8 +59,9 @@ const Searchbar = props => {
 
   //Called on click of the search button
   function handleSearch() {
-    let url = 'http://localhost:5000/companies/?';
-    let parameters =
+    let endpointResturants = 'http://localhost:5000/companies/?';
+    let endpointLocations = 'http://localhost:5000/companies/locations/?';
+    let query =
       "name=" +
       name +
       "&orderBy=" +
@@ -69,11 +70,9 @@ const Searchbar = props => {
       cities +
       "&smileys=" +
       smileys;
-    console.log(parameters);
-    let query = url + parameters;
-    console.log(query);
-    //props.storeQuery(query);
-    props.fetchResturants(query);
+    
+    props.fetchResturants(endpointResturants, query);
+    props.fetchResturants(endpointLocations, query);
   }
 
   //Called when text into textfield navn changes, updates navn state

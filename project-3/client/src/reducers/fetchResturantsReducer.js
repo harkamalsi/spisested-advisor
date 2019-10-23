@@ -1,8 +1,9 @@
-import { FETCH_RESTURANTS_PENDING, FETCH_RESTURANTS_SUCCESS, FETCH_RESTURANTS_ERROR } from '../actions/index';
+import { FETCH_RESTURANTS_PENDING, FETCH_RESTURANTS_SUCCESS, FETCH_RESTURANTS_ERROR, FETCH_RESTURANTS_LOCATIONS } from '../actions/index';
 
 const initialState = {
     pending: false,
     resturants: [],
+    resturantLocations: [], 
     error: null,
     query: ""
 }
@@ -36,6 +37,12 @@ const fetchResturantsReducer = (state = initialState, action) => {
                 pending: false,
                 error: action.error
             };
+        case FETCH_RESTURANTS_LOCATIONS:
+            return {
+                ...state,
+                pending: false,
+                resturantLocations: action.resturantLocations
+            }
         default:
             return state;
     }
@@ -43,6 +50,7 @@ const fetchResturantsReducer = (state = initialState, action) => {
 
 
 export const getResturants = state => state.resturants;
+export const getResturantLocations = state => state.resturantLocations;
 export const getResturantsPending = state => state.pending;
 export const getResturantsError = state => state.error;
 export const getQuery = state => state.query;
