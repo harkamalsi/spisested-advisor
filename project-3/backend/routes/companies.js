@@ -3,9 +3,9 @@ const router = express.Router();
 var ObjectId = require('mongodb').ObjectId;
 const Company = require('../models/company.model');
 
-const getQuery = (apiquery, mapDataRoute) => {
+const getQuery = (apiquery, locationsRoute) => {
   // apiquery is an request object
-  // mapDataRoute is a boolean
+  // locationsRoute is a boolean
 
   let orderNameInt;
   let orderSmileyInt;
@@ -17,81 +17,86 @@ const getQuery = (apiquery, mapDataRoute) => {
 
   let page = apiquery.page;
 
-  if (!mapDataRoute) {
-    // 1 = ASC, -1 = DESC
-    switch (orderby) {
-      case 'NAME_AZ':
-        orderNameInt = 1;
-        break;
-      case 'NAME_ZA':
-        orderNameInt = -1;
-        break;
-      case 'SMILEY_ASC':
-        // [3, 2, 1, 0] = "Sur, nøytral, smil, smil"
-        // Because of how mongoDb works, we must provide with -1
-        orderSmileyInt = -1;
-        break;
-      case 'SMILEY_DESC':
-        // [0, 1, 2, 3] = "Smil, smil, nøytral, Sur"
-        // Because of how mongoDb works, we must provide with 1
-        orderSmileyInt = 1;
-        break;
-      default:
-        // Default case is NAME_AZ
-        orderNameInt = 1;
-    }
+  // 1 = ASC, -1 = DESC
+  switch (orderby) {
+    case 'NAME_AZ':
+      orderNameInt = 1;
+      break;
+    case 'NAME_ZA':
+      orderNameInt = -1;
+      break;
+    case 'SMILEY_ASC':
+      // [3, 2, 1, 0] = "Sur, nøytral, smil, smil"
+      // Because of how mongoDb works, we must provide with -1
+      orderSmileyInt = -1;
+      break;
+    case 'SMILEY_DESC':
+      // [0, 1, 2, 3] = "Smil, smil, nøytral, Sur"
+      // Because of how mongoDb works, we must provide with 1
+      orderSmileyInt = 1;
+      break;
+    default:
+      // Default case is NAME_AZ
+      orderNameInt = 1;
+  }
 
-    let mongoQuery;
-    if (!cities && !smileys) {
-      mongoQuery = {
-        // Finds even if name is blank
-        name: new RegExp(name, 'i')
-      };
-    } else if (!cities) {
-      mongoQuery = {
+  let mongoQuery;
+  if (!cities && !smileys) {
+    mongoQuery = {
+      // Finds even if name is blank
+      $match: { name: new RegExp(name, 'i') }
+    };
+  } else if (!cities) {
+    mongoQuery = {
+      $match: {
         name: new RegExp(name, 'i'),
         'smileys.0.grade': { $in: smileys.split('-').map(Number) }
-      };
-    } else if (!smileys) {
-      mongoQuery = {
-        name: new RegExp(name, 'i'),
-        city: { $in: cities.split('-') }
-      };
-    } else {
-      //(name || (cities && smileys))
-      mongoQuery = {
+      }
+    };
+  } else if (!smileys) {
+    mongoQuery = {
+      $match: { name: new RegExp(name, 'i'), city: { $in: cities.split('-') } }
+    };
+  } else {
+    //(name || (cities && smileys))
+    mongoQuery = {
+      $match: {
         name: new RegExp(name, 'i'),
         city: { $in: cities.split('-') },
         'smileys.0.grade': { $in: smileys.split('-').map(Number) }
-      };
-    }
+      }
+    };
+  }
 
-    let mongoSearchSortQuery = {};
-    let mongoPaginationQuery = {};
-    let mongoSkipInt = 0; // Default, skips nothing
+  let mongoSearchSortQuery = {};
+  let mongoPaginationQuery = {};
+  let mongoSkipInt = 0; // Default, skips nothing
 
-    if (orderSmileyInt) {
-      // 1 = ASC, -1 = DESC
-      mongoSearchSortQuery = { 'smileys.0.grade': orderSmileyInt };
-    } else {
-      // 1 = ASC, -1 = DESC
-      mongoSearchSortQuery = { name: orderNameInt };
-    }
-
-    if (page) {
-      mongoSkipInt = parseInt(page * 10);
-    }
-
-    return [mongoQuery, mongoSearchSortQuery, mongoSkipInt];
+  if (orderSmileyInt) {
+    // 1 = ASC, -1 = DESC
+    mongoSearchSortQuery = { 'smileys.0.grade': orderSmileyInt };
   } else {
-    return {
+    // 1 = ASC, -1 = DESC
+    mongoSearchSortQuery = { name: orderNameInt };
+  }
+
+  if (page) {
+    mongoSkipInt = parseInt(page * 10);
+  }
+
+  if (locationsRoute) {
+    let projectQuery = {
       $project: {
         _id: 0,
         name: 1,
         coordinates: 1
       }
     };
+
+    return [mongoQuery, projectQuery];
   }
+
+  return [mongoQuery, mongoSearchSortQuery, mongoSkipInt];
 };
 
 // @route     GET companies
@@ -101,9 +106,9 @@ router.route('/').get((req, res) => {
   // queries = [mongoQuery, mongoSearchSortQuery, mongoSkipInt]
   let queries = getQuery(req.query, false);
 
-  Company.find(queries[0])
-    .sort(queries[1])
-    .skip(queries[2])
+  console.log(queries);
+
+  Company.aggregate([queries[0], { $sort: queries[1] }, { $skip: queries[2] }])
     .limit(10)
     .then(companies => res.json(companies))
     .catch(err => res.status(400).json('Error: ' + err));
@@ -113,10 +118,12 @@ router.route('/').get((req, res) => {
 // @desc      Get all mapData: names and coordinates
 // @access    Public
 router.route('/locations').get((req, res) => {
-  // query = {mongoQuery}
-  let query = getQuery(req.query, true);
+  // queries = [mongoQuery, projectQuery]
+  let queries = getQuery(req.query, true);
 
-  Company.aggregate([query])
+  console.log(queries);
+
+  Company.aggregate(queries)
     .then(companies => res.json(companies))
     .catch(err => res.status(400).json('Error: ' + err));
 });
