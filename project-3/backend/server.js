@@ -1,7 +1,7 @@
 const express = require('express');
+//"Cross-origin resource sharing (CORS) allows AJAX requests to skip the Same-origin policy and access resources from remote hosts." -Carnes, Beau
 const cors = require('cors');
 const mongoose = require('mongoose');
-//var bodyParser = require('body-parser');
 
 // Environment variables
 require('dotenv').config();
@@ -14,8 +14,6 @@ const port = 5000;
 app.use(cors());
 // Allows to parse json
 app.use(express.json());
-//app.use(bodyParser.urlencoded({ extended: false }));
-//app.use(bodyParser.json());
 
 const uri = process.env.MONGODB_URI;
 mongoose.connect(uri, {
