@@ -1,6 +1,44 @@
-Commits markeres med hvilken issue de bidrar til. 
+# **IT2810-prosjekt3-Smileys**
+
+## Introduksjon
 
 
-Project 3 Smiley
+## Teknologi
+
+
+### React
+
+### Redux
+
+### Express
+##### REST API
+
+### MongoDB
+
+
+## Tredjeparts komponenter
+
+
+## React komponentstruktur
+
+### Hierarki diagram
+
+
+## Forhåndskrav
+
+
+## Innhold og funksjonalitet
+
+
+## Testing
+
+
+## Inspirasjon og kilder
+
+
+## Git-konvensjoner
+
+### Branches
+
 
 
