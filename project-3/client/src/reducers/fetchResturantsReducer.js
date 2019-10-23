@@ -3,7 +3,7 @@ import { FETCH_RESTURANTS_PENDING, FETCH_RESTURANTS_SUCCESS, FETCH_RESTURANTS_ER
 const initialState = {
     pending: false,
     resturants: [],
-    resturantLocations: [], 
+    resturantLocations: [],
     error: null,
     query: ""
 }
@@ -12,25 +12,26 @@ const initialState = {
 const fetchResturantsReducer = (state = initialState, action) => {
     switch (action.type) {
         case FETCH_RESTURANTS_PENDING:
-            return {
-                ...state,
-                pending: true,
-            };
-        case FETCH_RESTURANTS_SUCCESS:
-            if (state.query == action.query) {
+            if (action.newQuery == true) {
                 return {
                     ...state,
-                    pending: false,
-                    resturants: action.resturants.concat(state.resturants)
+                    pending: true,
+                    resturants: [],
                 };
             } else {
                 return {
                     ...state,
-                    pending: false,
-                    resturants: action.resturants,
-                    query: action.query
+                    pending: true
                 };
-            }
+            };
+        case FETCH_RESTURANTS_SUCCESS:
+                return {
+                    ...state,
+                    pending: false,
+                    resturants: action.resturants.concat(state.resturants),
+                    query: action.query
+
+                };
         case FETCH_RESTURANTS_ERROR:
             return {
                 ...state,

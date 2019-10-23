@@ -1,10 +1,9 @@
 import {fetchResturantsPending, fetchResturantsSuccess, fetchResturantsError, fetchResturantLocations} from '../actions/index';
 
-const fetchResturants = (endpoint, query) => {
+const fetchResturants = (endpoint, query, newQuery=false) => {
 
-    
     return dispatch => {
-        dispatch(fetchResturantsPending());
+        dispatch(fetchResturantsPending(newQuery));
         fetch(endpoint + query)
         .then(res => res.json())
         .then(res => {

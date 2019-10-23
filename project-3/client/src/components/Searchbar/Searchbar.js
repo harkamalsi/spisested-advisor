@@ -4,6 +4,7 @@ import makeAnimated from "react-select/animated";
 import magnifyingGlass from "./mg.svg";
 import "./Searchbar.css";
 
+
 import fetchResturants from '../../fetchDataAction/fetchResturants';
 import { bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
@@ -70,8 +71,7 @@ const Searchbar = props => {
       cities +
       "&smileys=" +
       smileys;
-    
-    props.fetchResturants(endpointResturants, query);
+    props.fetchResturants(endpointResturants, query, true); // sett newSearch to true, in order to empty result set in store
     props.fetchResturants(endpointLocations, query);
   }
 
