@@ -69,7 +69,8 @@ const getQuery = (apiquery, locationsRoute) => {
 
   let mongoSearchSortQuery = {};
   let mongoPaginationQuery = {};
-  let mongoSkipInt = 0; // Default, skips nothing
+  // Default, skips nothing
+  let mongoSkipInt = 0;
 
   if (orderSmileyInt) {
     // 1 = ASC, -1 = DESC
@@ -109,8 +110,6 @@ router.route('/').get((req, res) => {
   // queries = [mongoQuery, mongoSearchSortQuery, mongoSkipInt]
   let queries = getQuery(req.query, false);
 
-  console.log(queries);
-
   Company.aggregate([queries[0], { $sort: queries[1] }, { $skip: queries[2] }])
     .limit(20)
     .then(companies => res.json(companies))
@@ -123,8 +122,6 @@ router.route('/').get((req, res) => {
 router.route('/locations').get((req, res) => {
   // queries = [mongoQuery, projectQuery]
   let queries = getQuery(req.query, true);
-
-  console.log(queries);
 
   Company.aggregate(queries)
     .then(companies => res.json(companies))
