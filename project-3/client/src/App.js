@@ -1,26 +1,51 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import List from "././components/List/List.js";
+import Searchbar from "././components/Searchbar/Searchbar.js";
+import {
+  getResturants,
+  getResturantsError,
+  getResturantsPending,
+  getResturantLocations
+} from "./reducers/fetchResturantsReducer";
+import Map from "./components/Map/Mapcomponent";
+import { connect } from "react-redux";
 
-function App() {
+function App(props) {
+  const [selectedRestaurant, selectRestaurant] = useState(null);
+  const updateSelectedRow = id => {
+    selectRestaurant(id);
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Searchbar updateSelectedRow={updateSelectedRow.bind(this)}></Searchbar>
+      <div className="resultContainer">
+        <div className="map">
+          <Map
+            resturants={props.resturantLocations}
+            selectedPointId={selectedRestaurant}
+          ></Map>
+        </div>
+        <div className="List">
+          <List
+            listRawData={props.resturants}
+            updateSelectedRow={updateSelectedRow.bind(this)}
+            selectedRow={selectedRestaurant}
+          ></List>
+        </div>
+      </div>
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = state => ({
+  resturants: getResturants(state),
+  resturantLocations: getResturantLocations(state),
+  error: getResturantsError(state),
+  pending: getResturantsPending(state)
+});
+
+export default connect(
+  mapStateToProps,
+  null
+)(App);

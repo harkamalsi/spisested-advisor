@@ -1,0 +1,18 @@
+.CompleteSmiley {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 10px 10px 0px 10px;
+}
+
+.Smiley {
+  height: 30px;
+  width: auto;
+  align-self: center;
+}
+#Text {
+  font-size: 12px;
+  align-self: center;
+  padding: 0px;
+  margin: 0px;
+}
