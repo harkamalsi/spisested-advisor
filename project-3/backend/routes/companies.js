@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Company = require('../models/company.model');
+const Company = require("../models/company.model");
 
 const getQuery = (apiquery, locationsRoute) => {
   // apiquery is an request object
@@ -43,26 +43,26 @@ const getQuery = (apiquery, locationsRoute) => {
   if (!cities && !smileys) {
     mongoQuery = {
       // Finds even if name is blank
-      $match: { name: new RegExp(name, 'i') }
+      $match: { name: new RegExp(name, "i") }
     };
   } else if (!cities) {
     mongoQuery = {
       $match: {
-        name: new RegExp(name, 'i'),
-        'smileys.0.grade': { $in: smileys.split('-').map(Number) }
+        name: new RegExp(name, "i"),
+        "smileys.0.grade": { $in: smileys.split("-").map(Number) }
       }
     };
   } else if (!smileys) {
     mongoQuery = {
-      $match: { name: new RegExp(name, 'i'), city: { $in: cities.split('-') } }
+      $match: { name: new RegExp(name, "i"), city: { $in: cities.split("-") } }
     };
   } else {
     //(name || (cities && smileys))
     mongoQuery = {
       $match: {
-        name: new RegExp(name, 'i'),
-        city: { $in: cities.split('-') },
-        'smileys.0.grade': { $in: smileys.split('-').map(Number) }
+        name: new RegExp(name, "i"),
+        city: { $in: cities.split("-") },
+        "smileys.0.grade": { $in: smileys.split("-").map(Number) }
       }
     };
   }
@@ -73,7 +73,7 @@ const getQuery = (apiquery, locationsRoute) => {
 
   if (orderSmileyInt) {
     // 1 = ASC, -1 = DESC
-    mongoSearchSortQuery = { 'smileys.0.grade': orderSmileyInt };
+    mongoSearchSortQuery = { "smileys.0.grade": orderSmileyInt };
   } else {
     // 1 = ASC, -1 = DESC
     mongoSearchSortQuery = { name: orderNameInt };
@@ -86,15 +86,15 @@ const getQuery = (apiquery, locationsRoute) => {
   if (locationsRoute) {
     let projectQuery = {
       $project: {
-        _id: 0,
+        _id: 1,
         name: 1,
         coordinates: 1
       }
     };
-    let searchQuery ={
+    let searchQuery = {
       $sort: mongoSearchSortQuery
     };
-    return [mongoQuery,searchQuery, projectQuery];
+    return [mongoQuery, searchQuery, projectQuery];
   }
 
   return [mongoQuery, mongoSearchSortQuery, mongoSkipInt];
@@ -103,7 +103,7 @@ const getQuery = (apiquery, locationsRoute) => {
 // @route     GET companies
 // @desc      Get all companies with possible sorts and filters on zipcode and city
 // @access    Public
-router.route('/').get((req, res) => {
+router.route("/").get((req, res) => {
   // queries = [mongoQuery, mongoSearchSortQuery, mongoSkipInt]
   let queries = getQuery(req.query, false);
 
@@ -118,7 +118,7 @@ router.route('/').get((req, res) => {
 // @route     GET mapData
 // @desc      Get all mapData: names and coordinates
 // @access    Public
-router.route('/locations').get((req, res) => {
+router.route("/locations").get((req, res) => {
   // queries = [mongoQuery, projectQuery]
   let queries = getQuery(req.query, true);
 
@@ -126,13 +126,13 @@ router.route('/locations').get((req, res) => {
 
   Company.aggregate(queries)
     .then(companies => res.json(companies))
-    .catch(err => res.status(400).json('Error: ' + err));
+    .catch(err => res.status(400).json("Error: " + err));
 });
 
 // @route     PUT companies/giverating
 // @desc      Give rating and increment numberOfRatings automatically for a specific company object
 // @access    Public
-router.route('/giverating').put((req, res) => {
+router.route("/giverating").put((req, res) => {
   let id = req.body.id;
   let stars = parseInt(req.body.stars);
 

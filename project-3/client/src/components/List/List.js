@@ -1,14 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import ListRow from "../ListRow/ListRow.js";
 import "./List.css";
-
-
-import { getQuery } from "../../reducers/fetchResturantsReducer";
-import fetchResturants from '../../fetchDataAction/fetchResturants';
-import { bindActionCreators} from 'redux';
-import { connect } from 'react-redux';
-
-
+import fetchMore from "../../fetchDataAction/fetchMoreResturants";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 /*
     Renders a List like component with expandable rows.
 
@@ -33,10 +28,6 @@ import { connect } from 'react-redux';
 
 */
 const List = props => {
-  const [expandedRowId, setExpandedRow] = useState(null);
-  const [hasMoreData, setMoreData] = useState(true);
-
-
   useEffect(() => {
     const table = document.getElementById("Table");
 
@@ -46,40 +37,37 @@ const List = props => {
       // is equal to the total scrollable height of the table, bottom is reached and
       // new data must be requested
       if (el.scrollTop + el.clientHeight + 1 > el.scrollHeight) {
-        fetchMoreData();
+        fetchMoreData(table.attributes.url.value);
       }
     });
   }, []);
 
-  function fetchMoreData() {
-    console.log("buttom reaced");
-    console.log("Fetch more list items!");
-    //TODO: Fetch routine with stored query and append fetched data to already stored
-    console.log(typeof(props.query))
-    props.fetchResturants('http://localhost:5000/companies/?', props.query, false);
+  function fetchMoreData(url) {
+    //Fetches routine with stored query and append fetched data to already stored
+    props.fetchMore(url);
 
-   // if (hasMoreData) {
-      //fetch data from server
-      //if data is empty --> no more data on server --> set hasMoreData to false
-     // if (null) setMoreData(false);
-      //so it doesn't send unnecessary fetch requests
-   // }
+    // if (hasMoreData) {
+    //fetch data from server
+    //if data is empty --> no more data on server --> set hasMoreData to false
+    // if (null) setMoreData(false);
+    //so it doesn't send unnecessary fetch requests
+    // }
   }
 
   //Logic to expand selected row (Can be used for test)
   function handleExpanedRow(id) {
-    if (expandedRowId === id) return null;
+    if (props.selectedRow === id) return null;
     return id;
   }
 
   //update selected row to be expanded
-  function updateExpandedRow(id) {
-    setExpandedRow(handleExpanedRow(id));
+  function handleRowClick(id) {
+    //setExpandedRow(handleExpanedRow(id));
+    props.updateSelectedRow(handleExpanedRow(id));
   }
 
   function saveReview(id, starValue) {
     //logic for comunicating with API
-    console.log(id, starValue);
     let body = { id, stars: starValue };
     fetch("http://localhost:5000/companies/giverating", {
       method: "PUT",
@@ -90,8 +78,6 @@ const List = props => {
     });
   }
 
-
-  console.log(props.listRawData)
   let rows =
     props.listRawData === undefined ? (
       <h2>Søkeresultater listes her</h2>
@@ -101,25 +87,33 @@ const List = props => {
           key={row._id}
           id={row._id}
           rowData={row}
-          handleClick={updateExpandedRow.bind(this)}
-          isExpanded={expandedRowId === row._id}
+          handleClick={handleRowClick.bind(this)}
+          isExpanded={props.selectedRow === row._id}
           saveReview={saveReview}
         ></ListRow>
       ))
     );
   return (
-    <ul id="Table">{rows}</ul>
+    <ul id="Table" url={props.query + props.page}>
+      {rows}
+    </ul>
   );
 };
 
-const mapStateToProps = state => ({
-   query: getQuery(state)
-});
-
-const mapDispatchToProps = dispatch => bindActionCreators({
-  fetchResturants: fetchResturants
-}, dispatch)
-
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(List);
+const mapStateToProps = state => {
+  return {
+    query: state.query,
+    page: state.page
+  };
+};
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      fetchMore: fetchMore
+    },
+    dispatch
+  );
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(List);

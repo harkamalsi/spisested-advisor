@@ -4,12 +4,9 @@ import makeAnimated from "react-select/animated";
 import magnifyingGlass from "./mg.svg";
 import "./Searchbar.css";
 
-
-import fetchResturants from '../../fetchDataAction/fetchResturants';
-import { bindActionCreators} from 'redux';
-import { connect } from 'react-redux';
-
-
+import fetchResturants from "../../fetchDataAction/fetchResturants";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 
 const smileyOptions = [
   { value: "0", label: "Smil" },
@@ -60,8 +57,8 @@ const Searchbar = props => {
 
   //Called on click of the search button
   function handleSearch() {
-    let endpointResturants = 'http://localhost:5000/companies/?';
-    let endpointLocations = 'http://localhost:5000/companies/locations/?';
+    let endpointResturants = "http://localhost:5000/companies/?";
+    let endpointLocations = "http://localhost:5000/companies/locations/?";
     let query =
       "name=" +
       name +
@@ -70,10 +67,9 @@ const Searchbar = props => {
       "&cities=" +
       cities +
       "&smileys=" +
-      smileys + 
-      "&page=" + 
-      0;
-      props.fetchResturants(endpointLocations, query);
+      smileys +
+      "&page=";
+    props.fetchResturants(endpointLocations, query);
     props.fetchResturants(endpointResturants, query, true); // sett newSearch to true, in order to empty result set in store
   }
 
@@ -193,9 +189,15 @@ const Searchbar = props => {
   );
 };
 
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      fetchResturants: fetchResturants
+    },
+    dispatch
+  );
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-  fetchResturants: fetchResturants
-}, dispatch)
-
-export default connect(null, mapDispatchToProps)(Searchbar);
+export default connect(
+  null,
+  mapDispatchToProps
+)(Searchbar);
