@@ -69,7 +69,8 @@ const getQuery = (apiquery, locationsRoute) => {
 
   let mongoSearchSortQuery = {};
   let mongoPaginationQuery = {};
-  let mongoSkipInt = 0; // Default, skips nothing
+  // Default, skips nothing
+  let mongoSkipInt = 0;
 
   if (orderSmileyInt) {
     // 1 = ASC, -1 = DESC
@@ -91,9 +92,11 @@ const getQuery = (apiquery, locationsRoute) => {
         coordinates: 1
       }
     };
+
     let searchQuery = {
       $sort: mongoSearchSortQuery
     };
+
     return [mongoQuery, searchQuery, projectQuery];
   }
 
@@ -106,8 +109,6 @@ const getQuery = (apiquery, locationsRoute) => {
 router.route("/").get((req, res) => {
   // queries = [mongoQuery, mongoSearchSortQuery, mongoSkipInt]
   let queries = getQuery(req.query, false);
-
-  console.log(queries);
 
   Company.aggregate([queries[0], { $sort: queries[1] }, { $skip: queries[2] }])
     .limit(20)
@@ -122,8 +123,6 @@ router.route("/locations").get((req, res) => {
   // queries = [mongoQuery, projectQuery]
   let queries = getQuery(req.query, true);
 
-  console.log(queries);
-
   Company.aggregate(queries)
     .then(companies => res.json(companies))
     .catch(err => res.status(400).json("Error: " + err));
@@ -136,12 +135,9 @@ router.route("/giverating").put((req, res) => {
   let id = req.body.id;
   let stars = parseInt(req.body.stars);
 
-  Company.findByIdAndUpdate(
-    id,
-    { $inc: { numberOfRatings: 1, sumStars: stars } },
-    { new: true }
-    // { new: true } makes sure to return an obejct so it can be passed as a response
-  )
+  Company.findByIdAndUpdate(id, {
+    $inc: { numberOfRatings: 1, sumStars: stars }
+  })
     .then(company => res.json(company))
     .catch(err => res.status(400).json("Error: " + err));
 });
