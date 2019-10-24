@@ -57,6 +57,8 @@ const Searchbar = props => {
 
   //Called on click of the search button
   function handleSearch() {
+    //Unselect the selected row by setting the id to null.
+    props.updateSelectedRow(null);
     let endpointResturants = "http://localhost:5000/companies/?";
     let endpointLocations = "http://localhost:5000/companies/locations/?";
     let query =

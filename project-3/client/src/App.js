@@ -18,7 +18,7 @@ function App(props) {
   };
   return (
     <div className="App">
-      <Searchbar></Searchbar>
+      <Searchbar updateSelectedRow={updateSelectedRow.bind(this)}></Searchbar>
       <div className="resultContainer">
         <div className="map">
           <Map

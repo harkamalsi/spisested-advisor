@@ -14,10 +14,13 @@ const ListRow = props => {
   let id = row._id;
   let smileysComponents = formatSmileys(row.smileys);
 
-
   //format extra information in JSX format
   function formatExtraInformation() {
     let text = !ratingGiven ? "Gi en vurdering :" : "Din vurdering:";
+    let smileyText =
+      row.smileys.length > 1
+        ? "Resultat fra tidligere inspeksjoner:"
+        : "Ingen tidligere inspeksjoner.";
     return (
       <div className="ExtraInformation">
         <div id="Address2Cell" className="Cell">
@@ -43,7 +46,7 @@ const ListRow = props => {
           />
         </div>
         <div id="TextCell" className="Cell">
-          <p className="Text">Resultat fra forrige inspeksjoner: </p>
+          <p className="Text">{smileyText} </p>
         </div>
         <div id="OldSmileys" className="Cell">
           {smileysComponents.slice(1, 7)}
@@ -66,22 +69,25 @@ const ListRow = props => {
   function onStarHoverOut() {
     setRating(0);
   }
-   function formatSmileys(smileys) {
+  function formatSmileys(smileys) {
     //Split string by ".", map the result array into an array of Objects with smileys with relative years.
     // It then sortes the array by the year and finally maps the array into an array of Smiley component
-   
-      return smileys.map(smiley => (
-        <Smiley
-          key={smiley.date}
-          value={smiley.grade}
-          year={smiley.date.substring(4)}
-        ></Smiley>
-      ));
+
+    return smileys.map(smiley => (
+      <Smiley
+        key={smiley.date}
+        value={smiley.grade}
+        year={smiley.date.substring(4)}
+      ></Smiley>
+    ));
   }
- 
+
   let rowClassType = null;
   let extraInformation = null;
-  let stars =(row.numberOfRatings===0 ? "No rating yet" : (row.sumStars / row.numberOfRatings).toFixed(2).toString()+"/5");
+  let stars =
+    row.numberOfRatings === 0
+      ? "No rating yet"
+      : (row.sumStars / row.numberOfRatings).toFixed(2).toString() + "/5";
 
   //If prop is true, set rowClassType to expanded Row and then render an expanded row.
   if (props.isExpanded) {

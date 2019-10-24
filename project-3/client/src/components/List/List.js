@@ -79,8 +79,8 @@ const List = props => {
   }
 
   let rows =
-    props.listRawData === undefined ? (
-      <h2>Søkeresultater listes her</h2>
+    props.listRawData.length === 0 ? (
+      <h2>Søkeresultater listes her hvis de finnes</h2>
     ) : (
       props.listRawData.map(row => (
         <ListRow
