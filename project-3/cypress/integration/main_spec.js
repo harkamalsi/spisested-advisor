@@ -1,6 +1,6 @@
 // If you want to run test against the production build, uncomment the line below and comment the line under it
-//const url = "it2810-02.idi.ntnu.no/prosjekt3";
-const url = "localhost:3000";
+const url = "it2810-02.idi.ntnu.no/prosjekt3";
+//const url = "localhost:3000";
 
 describe("Visit the url", () => {
   it("Visits the Smiley App at " + url, () => {
