@@ -3,8 +3,12 @@ npm install
 
 cd backend => npm install
 
-npm install -g nodemon
-npm install -g concurrently
+
+*  npm install -g nodemon
+
+*  npm install -g concurrently
+
+*  npm install express cors mongoose dotenv
 
 nodemon server
 
