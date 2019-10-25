@@ -1,20 +1,37 @@
 .App {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows:
+    minmax(min-content, max-content) minmax(min-content, max-content)
+    auto;
+  grid-template-areas:
+    "title title "
+    "searchbar searchbar"
+    "map list";
+
   height: 100vh;
   width: 100vw;
+  max-height: 100vh;
 }
-.List {
-  margin: 20px 5px 0px 0px;
-  width: 50vw;
-  height: 80vh;
-  align-self: flex-end;
-}
-
-.resultContainer {
-  display: flex;
+#title {
+  grid-area: title;
+  text-align: center;
 }
 
-.map {
-  width: 50%;
+#searchbar {
+  grid-area: searchbar;
+  height: auto;
+  margin: 5px;
+}
+
+#map {
+  grid-area: map;
+  height: auto;
+  margin: 5px;
+}
+
+#list {
+  grid-area: list;
+  min-height: 200px;
+  margin: 5px;
 }

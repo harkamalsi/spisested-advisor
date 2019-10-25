@@ -2,14 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import List from "././components/List/List.js";
 import Searchbar from "././components/Searchbar/Searchbar.js";
-import {
-  getResturants,
-  getResturantsError,
-  getResturantsPending,
-  getResturantLocations
-} from "./reducers/fetchResturantsReducer";
 import Map from "./components/Map/Mapcomponent";
-import { connect } from "react-redux";
 
 function App(props) {
   const [selectedRestaurant, selectRestaurant] = useState(null);
@@ -18,34 +11,23 @@ function App(props) {
   };
   return (
     <div className="App">
-      <Searchbar updateSelectedRow={updateSelectedRow.bind(this)}></Searchbar>
-      <div className="resultContainer">
-        <div className="map">
-          <Map
-            resturants={props.resturantLocations}
-            selectedPointId={selectedRestaurant}
-          ></Map>
-        </div>
-        <div className="List">
-          <List
-            listRawData={props.resturants}
-            updateSelectedRow={updateSelectedRow.bind(this)}
-            selectedRow={selectedRestaurant}
-          ></List>
-        </div>
+      <div id="title">
+        <h1>Spisested Adviser</h1>
+      </div>
+      <div id="searchbar">
+        <Searchbar updateSelectedRow={updateSelectedRow.bind(this)}></Searchbar>
+      </div>
+      <div id="map">
+        <Map selectedPointId={selectedRestaurant}></Map>
+      </div>
+      <div id="list">
+        <List
+          updateSelectedRow={updateSelectedRow.bind(this)}
+          selectedRow={selectedRestaurant}
+        ></List>
       </div>
     </div>
   );
 }
 
-const mapStateToProps = state => ({
-  resturants: getResturants(state),
-  resturantLocations: getResturantLocations(state),
-  error: getResturantsError(state),
-  pending: getResturantsPending(state)
-});
-
-export default connect(
-  mapStateToProps,
-  null
-)(App);
+export default App;

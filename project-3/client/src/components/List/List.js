@@ -4,6 +4,7 @@ import "./List.css";
 import fetchMore from "../../fetchDataAction/fetchMoreResturants";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import { getResturants } from "../../reducers/fetchResturantsReducer";
 /*
     Renders a List like component with expandable rows.
 
@@ -36,7 +37,9 @@ const List = props => {
       //If the height of the table + the dynamic height of the scrolling cursor
       // is equal to the total scrollable height of the table, bottom is reached and
       // new data must be requested
-      if (el.scrollTop + el.clientHeight + 1 > el.scrollHeight) {
+      console.log("ddddddd");
+      console.log(el.scrollTop + el.clientHeight + 1, el.scrollHeight);
+      if (el.scrollTop + el.clientHeight + 1 >= el.scrollHeight) {
         fetchMoreData(table.attributes.url.value);
       }
     });
@@ -44,7 +47,10 @@ const List = props => {
 
   function fetchMoreData(url) {
     //Fetches routine with stored query and append fetched data to already stored
-    props.fetchMore(url);
+    //only if last char of url (String) is not 0 (page 0, just for error preventing)
+    if (url.slice(-2) !== "=0") {
+      props.fetchMore(url);
+    }
 
     // if (hasMoreData) {
     //fetch data from server
@@ -69,7 +75,7 @@ const List = props => {
   function saveReview(id, starValue) {
     //logic for comunicating with API
     let body = { id, stars: starValue };
-    fetch("http://it2810-02.idi.ntnu.no:5000/companies/giverating", {
+    fetch("/companies/giverating", {
       method: "PUT",
       body: JSON.stringify(body),
       mode: "cors",
@@ -81,7 +87,7 @@ const List = props => {
 
   let rows =
     props.listRawData.length === 0 ? (
-      <h2>Søkeresultater listes her hvis de finnes</h2>
+      <h2 id="placeholderText">Søkeresultater listes her hvis de finnes</h2>
     ) : (
       props.listRawData.map(row => (
         <ListRow
@@ -104,7 +110,8 @@ const List = props => {
 const mapStateToProps = state => {
   return {
     query: state.query,
-    page: state.page
+    page: state.page,
+    listRawData: getResturants(state)
   };
 };
 const mapDispatchToProps = dispatch =>

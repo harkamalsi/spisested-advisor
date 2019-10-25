@@ -75,7 +75,7 @@ const ListRow = props => {
 
     return smileys.map(smiley => (
       <Smiley
-        key={smiley.date}
+        key={smiley.date + "-" + smiley.grade}
         value={smiley.grade}
         year={smiley.date.substring(4)}
       ></Smiley>
