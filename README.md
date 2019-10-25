@@ -1,17 +1,17 @@
 # **IT2810 - Prosjekt 3 Smileys**
 
 ## Introduksjon
-Prosjektet baserer seg på mattilsynets [smilefjesdatabase](https://data.norge.no/data/mattilsynet/smilefjestilsyn-p%C3%A5-serveringssteder), som inneholder alle restaurantinspeksjoner gjort av mattilsynet siden simlefjesordningens oppstart i 2016. Applikasjonen vår, som er en prototype i henhold til oppgavebeskrivelsen, gjør det mulig å søke gjennom denne databasen og få vist resultatet av søket i liste- og kartform. I tillegg er det mulig for brukerne av applikasjonen å gi deres egne vurderinger av restaurantene, fra 1-5 stjerner. 
+Prosjektet baserer seg på mattilsynets [smilefjesdatabase](https://data.norge.no/data/mattilsynet/smilefjestilsyn-p%C3%A5-serveringssteder), som inneholder alle restaurantinspeksjoner gjort av mattilsynet siden smilefjesordningens oppstart i 2016. Applikasjonen vår, som er en prototype i henhold til oppgavebeskrivelsen, gjør det mulig å søke gjennom denne databasen og få vist resultatet av søket i liste- og kartform. I tillegg er det mulig for brukerne av applikasjonen å gi deres egne vurderinger av restaurantene, fra 1-5 stjerner. 
 
-[Link](http://it2810-02.idi.ntnu.no/prosjekt3/) til applikasjonen.
+[Applikasjonen finnes her](http://it2810-02.idi.ntnu.no/prosjekt3/).
 ## Teknologi
 
 
 ### React
-Sytemet er bygget på React, og bruker både ES5 og ES6 med både klasser og funksjonelle komponenter. Vi brukte npx create-react-app for å komme i gang med prosjektet.
+Systemet er bygget på React, og bruker både ES5 og ES6 med funksjonelle komponenter. Vi brukte npx create-react-app for å komme i gang med prosjektet. Vi har benyttet oss av lifecycle-metoder, sammen med hooks, for at komponentene skal rendres til rett tid. 
 
 ### Redux
-Systemet benytter Redux til å håndtere states i appen. Hovedsakelig brukes den til å håndere fetching av data via APIet. All data som bli fetchet, blir lagret i store, slik at store distribuerer dataene til komponentene som er knyttet (connected) til redux store. Får å få til dette, brukes (redux-thunk)[https://www.npmjs.com/package/redux-thunk], som er en middelware.
+Systemet benytter Redux til å håndtere states i appen. Hovedsakelig brukes den til å håndtere fetching av data via APIet. All data som bli fetchet, blir lagret i store, slik at store distribuerer dataene til komponentene som er knyttet (connected) til redux store. Får å få til dette, brukes (redux-thunk)[https://www.npmjs.com/package/redux-thunk], som er en middelware.
 
 ### Express - REST API
 Backend av prosjektet er implementert ved hjelp av Express. Express er et Node.js web rammeverk. For at klienten og serveren skal kunne kommuniserer med hverandre har vi valgt å bruke REST APIs, og når de brukes sammen får vi en RESTful server. I Express settes det opp routes for å kunne bruke slike RESTful APIs. REST i seg selv er en protokoll som tar i bruk HTTP metoder for å kunne utføre CRUD operasjoner. CRUD operasjoner er create, read, update og delete operasjoner. 
@@ -63,7 +63,7 @@ Husk du må være koblet til NTNU nett: enten være på campus eller bruke vpn.
 ## Innhold og funksjonalitet
 
 ## Datasett
-Datasettet er hentet fra [mattilsynet](https://data.norge.no/data/mattilsynet/smilefjestilsyn-p%C3%A5-serveringssteder). Denne har vi tilpasset til vår prototype ved å bruke et pythonscript. Ettersom adressene til restaurantene i datasettet ikke helt stemmer med de fysiske adressene (feks vegen istedetfor veien), ble det utfordrende å finne koordinater til alle restauranter. Derfor er det ikke alle restauranter som har kooridnater i datasettet. 
+Datasettet er hentet fra [mattilsynet](https://data.norge.no/data/mattilsynet/smilefjestilsyn-p%C3%A5-serveringssteder). Denne har vi tilpasset til vår prototype ved å bruke et pythonscript. Ettersom adressene til restaurantene i datasettet ikke helt stemmer med de fysiske adressene (feks vegen istedenfor veien), ble det utfordrende å finne koordinater til alle restauranter. Derfor er det ikke alle restauranter som har koordinater i datasettet. 
 ![datasett](/uploads/aefe229a0435c1b1c212c63661759990/datasett.png)
 
 ## Testing
