@@ -4,7 +4,9 @@
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
   "dependencies": {},
-  "devDependencies": {},
+  "devDependencies": {
+    "cypress": "^3.5.0"
+  },
   "scripts": {
     "client": "cd client && npm start",
     "server": "cd backend && npm start",
