@@ -11,6 +11,7 @@ Prosjektet baserer seg på mattilsynets [smilefjesdatabase](https://data.norge.n
 Sytemet er bygget på React, og bruker både ES5 og ES6 med både klasser og funksjonelle komponenter. Vi brukte npx create-react-app for å komme i gang med prosjektet.
 
 ### Redux
+Systemet benytter Redux til å håndtere states i appen. Hovedsakelig brukes den til å håndere fetching av data via APIet. All data som bli fetchet, blir lagret i store, slik at store distribuerer dataene til komponentene som er knyttet (connected) til redux store. Får å få til dette, brukes (redux-thunk)[https://www.npmjs.com/package/redux-thunk], som er en middelware.
 
 ### Express - REST API
 Backend av prosjektet er implementert ved hjelp av Express. Express er et Node.js web rammeverk. For at klienten og serveren skal kunne kommuniserer med hverandre har vi valgt å bruke REST APIs, og når de brukes sammen får vi en RESTful server. I Express settes det opp routes for å kunne bruke slike RESTful APIs. REST i seg selv er en protokoll som tar i bruk HTTP metoder for å kunne utføre CRUD operasjoner. CRUD operasjoner er create, read, update og delete operasjoner. 
@@ -19,9 +20,14 @@ Backend av prosjektet er implementert ved hjelp av Express. Express er et Node.j
 Gruppen tar i bruk MongoDB som er installert på den virtuelle maskinen. For å kunne hente nødvendig data må det gjøres spørringer til databasen. Disse inkluderer også pagination spørringer. (nødvendig?)
 
 ## Tredjeparts komponenter
+
+#### Thunk
+For at redux sine actions skal kunne kalle andre funksjoner, brukes [redux-thunk](https://www.npmjs.com/package/redux-thunk). Den tillater funksjoner å kalle funksjoner, noe som trengs for å at actions skal kunne fetche data fra APIet.
+
+
 #### Leaflet
 For kartet brukes biblioteket [leaflet](https://leafletjs.com/), mens kart data blir hentet fra [Open street Map](https://www.openstreetmap.org/). Tredjepartkomponenten [react-leaflet](https://react-leaflet.js.org/) brukes til å  gjøre leaflet til en react komponent. For gruppering av markers, brukes [react-leaflet-markercluser](https://www.npmjs.com/package/react-leaflet-markercluster)
-For å mappe restaurantadresser (geocoding), har vi brukt apiet fra [nominatim](https://nominatim.org)
+For å mappe restaurantadresser (geocoding), har vi brukt apiet fra [nominatim](https://nominatim.org).
 
 #### Mongoose
 Mongoose er en library for MongoDB og Nodejs som gjør det enklere å kunne jobbe med MongoDB. Vi har brukt mongoose for å definere Schemas, noe som hjelper med å definere spesifikke strukturer med forhandsdefinerte data types for dokumenter som hentes og gis til MongoDB. I dette prosjektet brukes det også Validation gjennom mongoose for å kunne validere data typer. Mongoose gjør det også generelt mye enklere å kunne holde Schemas konsistent når det gjøres operasjoner på databasen (MongoDB). 
@@ -56,13 +62,18 @@ Husk du må være koblet til NTNU nett: enten være på campus eller bruke vpn.
 
 ## Innhold og funksjonalitet
 
+## Datasett
+Datasettet er hentet fra [mattilsynet](https://data.norge.no/data/mattilsynet/smilefjestilsyn-p%C3%A5-serveringssteder). Denne har vi tilpasset til vår prototype ved å bruke et pythonscript. Ettersom adressene til restaurantene i datasettet ikke helt stemmer med de fysiske adressene (feks vegen istedetfor veien), ble det utfordrende å finne koordinater til alle restauranter. Derfor er det ikke alle restauranter som har kooridnater i datasettet. 
+![datasett](/uploads/aefe229a0435c1b1c212c63661759990/datasett.png)
 
 ## Testing
-
+Prosjektet er systematisk testet med unittesting og end-to-end testing. Unittestene tester om redux sine actions blir opprettet på en riktig måte av action creators. [Enzyme](https://airbnb.io/enzyme/) blir brukt til å sjekke om komponentene blir riktig rendret. For end-to-end testing, brukes [Cypress](https://www.cypress.io/). Her har vi flere tester, som blant annet tester søkefunksjonaliteten, at mer data blir fetchet ved scroll (pagination) og at ratingsystemet fungerer slik det skal.
 
 ## Inspirasjon og kilder
 Backend koden er inspirert og delvis hentet fra: Carnes, Beau: Learn the MERN stack by building an exercise tracker — MERN Tutorial. Fra: https://medium.com/@beaucarnes/learn-the-mern-stack-by-building-an-exercise-tracker-mern-tutorial-59c13c1237a1. [15.10.2019]
 
+Fetching av data med react og redux er inspirert av guiden fra: Claus, Markus: Fetching data from an api using React/Redux. Fra: https://dev.to/markusclaus/fetching-data-from-an-api-using-reactredux-55ao [20.10.2019]
+ 
 
 ## Git-konvensjoner
 
