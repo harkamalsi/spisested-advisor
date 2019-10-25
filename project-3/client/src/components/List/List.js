@@ -37,7 +37,7 @@ const List = props => {
       //If the height of the table + the dynamic height of the scrolling cursor
       // is equal to the total scrollable height of the table, bottom is reached and
       // new data must be requested
-      if (el.scrollTop + el.clientHeight === el.scrollHeight) {
+      if (el.scrollTop + el.clientHeight + 0.5 > el.scrollHeight) {
         fetchMoreData(table.attributes.url.value);
       }
     });
