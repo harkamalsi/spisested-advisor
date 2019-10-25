@@ -69,11 +69,12 @@ const List = props => {
   function saveReview(id, starValue) {
     //logic for comunicating with API
     let body = { id, stars: starValue };
-    fetch("http://localhost:5000/companies/giverating", {
+    fetch("http://it2810-02.idi.ntnu.no:5000/companies/giverating", {
       method: "PUT",
       body: JSON.stringify(body),
+      mode: "cors",
       headers: {
-        "Content-type": "application/json; charset=UTF-8"
+        "Content-type": "application/json; charset=utf-8"
       }
     });
   }
