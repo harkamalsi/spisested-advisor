@@ -32,6 +32,13 @@ For å mappe restaurantadresser (geocoding), har vi brukt apiet fra [nominatim](
 #### Mongoose
 Mongoose er en library for MongoDB og Nodejs som gjør det enklere å kunne jobbe med MongoDB. Vi har brukt mongoose for å definere Schemas, noe som hjelper med å definere spesifikke strukturer med forhandsdefinerte data types for dokumenter som hentes og gis til MongoDB. I dette prosjektet brukes det også Validation gjennom mongoose for å kunne validere data typer. Mongoose gjør det også generelt mye enklere å kunne holde Schemas konsistent når det gjøres operasjoner på databasen (MongoDB). 
 
+#### React Select
+Det er en ganske fleksibel komponent som kan tilpasses til mange forskjellige bruk takk til sine mange props. 
+3 React select komponenter er rendered under searchbar, 2 av dem er konfigurert slik at de kan ta flere valg samtidig eller ingen. Den siste har kun en mulig valg samtidig og en default valg.
+
+#### React Star Component
+React start komponent er rendered under hver List row komponent for å kunne gi vurdering for en gitt restaurant.
+
 ## React komponentstruktur
 
 ### Hierarki diagram
