@@ -12,7 +12,7 @@ import Enzyme from 'enzyme';
 import configureMockStore from "redux-mock-store";
 
 function shallowSetup() {
-  // Sample props to pass to our shallow render
+
   const props = {
     pending: false,
     resturants: [],
@@ -21,7 +21,7 @@ function shallowSetup() {
     query: "",
     page: 0
   }
-  // wrapper instance around rendered output
+
   Enzyme.configure({ adapter: new Adapter() });
 
   const enzymeWrapper = shallow(<App {...props} />);
@@ -36,37 +36,11 @@ describe('Shallow rendered Todo Card', () => {
   it('should render a card with the details of the Todo', () => {
     // Setup wrapper and assign props.
     const { enzymeWrapper, props } = shallowSetup();
-    // enzymeWrapper.find(selector) : Find every node in the render tree that matches the provided selector. 
     expect(enzymeWrapper.find('#title').text()).toBe("Spisested Adviser");
 
-    // enzymeWrapper.containsMatchingElement(node i.e reactElement) : Check if the provided React element matches one element in the render tree. Returns a boolean.
   });
 });
 
-
-/* const mockStore = configureMockStore([]);
-
-it("renders without crashing", () => {
-  let store = mockStore({
-    pending: false,
-    resturants: [],
-    resturantLocations: [],
-    error: null,
-    query: "",
-    page: 0
-  });
-  
-  let component = renderer.create(
-    <Provider store={store}>
-      <App />
-    </Provider>
-  );
-
-  const div = document.createElement("div");
-  ReactDOM.render(component, div);
-  ReactDOM.unmountComponentAtNode(div);
-});
- */
 import * as actions from "./actions/index";
 
 describe("Test redux actions", () => {

@@ -49,13 +49,6 @@ const List = props => {
     if (url.slice(-2) !== "=0") {
       props.fetchMore(url);
     }
-
-    // if (hasMoreData) {
-    //fetch data from server
-    //if data is empty --> no more data on server --> set hasMoreData to false
-    // if (null) setMoreData(false);
-    //so it doesn't send unnecessary fetch requests
-    // }
   }
 
   //Logic to expand selected row (Can be used for test)
@@ -66,7 +59,6 @@ const List = props => {
 
   //update selected row to be expanded
   function handleRowClick(id) {
-    //setExpandedRow(handleExpanedRow(id));
     props.updateSelectedRow(handleExpanedRow(id));
   }
 

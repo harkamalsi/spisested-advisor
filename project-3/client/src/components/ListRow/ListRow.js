@@ -54,7 +54,7 @@ const ListRow = props => {
       </div>
     );
   }
-  //Sincronyse frontend with backend with rating given by the user
+  //Sincronise frontend with backend with rating given by the user
 
   //handles a start click
   function onStarClick(nextValue, prevValue, name, e) {

@@ -11,13 +11,12 @@ import thunk from 'redux-thunk'
 import fetchResturantsReducer from './reducers/fetchResturantsReducer';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-//const middleWares = [thunk]
+
 const enhancer = composeEnhancers(applyMiddleware(...[thunk]));
 
 const store = createStore(
-    fetchResturantsReducer,
-  //  applyMiddleware(...middleWares),
-  enhancer
+    fetchResturantsReducer, 
+    enhancer
 ); 
 
 ReactDOM.render(

@@ -63,8 +63,6 @@ const Mapcomponent = props => {
 
 const MapMarkerCluster = props => {
   return (
-    // React-leaflet
-    // react-leaflet-markercluster
     <MarkerClusterGroup>
       {props.coordinates.map((coordinate, index) => (
         <Marker key={index} position={coordinate}>
