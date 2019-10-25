@@ -37,9 +37,7 @@ const List = props => {
       //If the height of the table + the dynamic height of the scrolling cursor
       // is equal to the total scrollable height of the table, bottom is reached and
       // new data must be requested
-      console.log("ddddddd");
-      console.log(el.scrollTop + el.clientHeight + 1, el.scrollHeight);
-      if (el.scrollTop + el.clientHeight + 1 >= el.scrollHeight) {
+      if (el.scrollTop + el.clientHeight === el.scrollHeight) {
         fetchMoreData(table.attributes.url.value);
       }
     });
@@ -75,7 +73,7 @@ const List = props => {
   function saveReview(id, starValue) {
     //logic for comunicating with API
     let body = { id, stars: starValue };
-    fetch("/companies/giverating", {
+    fetch("http://it2810-02.idi.ntnu.no:5000/companies/giverating", {
       method: "PUT",
       body: JSON.stringify(body),
       mode: "cors",

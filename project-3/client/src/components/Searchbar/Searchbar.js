@@ -41,7 +41,7 @@ const Searchbar = props => {
   );
   //Load list of cities from server to be used in the city selector component
   useEffect(() => {
-    fetch("/companies/cities", {})
+    fetch("http://it2810-02.idi.ntnu.no:5000/companies/cities", {})
       .then(res => res.json())
       .then(
         result => {
@@ -59,8 +59,9 @@ const Searchbar = props => {
   function handleSearch() {
     //Unselect the selected row by setting the id to null.
     props.updateSelectedRow(null);
-    let endpointResturants = "/companies/?";
-    let endpointLocations = "/companies/locations/?";
+    let endpointResturants = "http://it2810-02.idi.ntnu.no:5000/companies/?";
+    let endpointLocations =
+      "http://it2810-02.idi.ntnu.no:5000/companies/locations/?";
     let query =
       "name=" +
       name +
