@@ -18,7 +18,7 @@ Prosjektet baserer seg på mattilsynets [smilefjesdatabase](https://data.norge.n
 
 ## Tredjeparts komponenter
 For kartet brukes biblioteket [leaflet](https://leafletjs.com/), mens kart data blir hentet fra [Open street Map](https://www.openstreetmap.org/). Tredjepartkomponenten [react-leaflet](https://react-leaflet.js.org/) brukes til å  gjøre leaflet til en react komponent. For gruppering av markers, brukes [react-leaflet-markercluser](https://www.npmjs.com/package/react-leaflet-markercluster)
-
+For å mappe restaurantadresser (geocoding), har vi brukt apiet fra [nominatim](https://nominatim.org)
 ## React komponentstruktur
 
 ### Hierarki diagram
