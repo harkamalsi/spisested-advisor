@@ -4,23 +4,24 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "leaflet": "^1.5.1",
-    "leaflet.markercluster": "^1.4.1",
-    "prop-types": "^15.7.2",
-    "react": "^16.10.1",
-    "react-dom": "^16.10.2",
-    "react-leaflet": "^2.4.0",
-    "react-leaflet-markercluster": "^2.0.0-rc3",
-    "react-scripts": "3.2.0",
-    "redux": "^4.0.4",
     "@material-ui/core": "^4.5.0",
     "@material-ui/icons": "^4.4.3",
     "bootstrap": "^4.3.1",
+    "leaflet": "^1.5.1",
+    "leaflet.markercluster": "^1.4.1",
+    "object-hash": "^2.0.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.10.1",
     "react-bootstrap": "^1.0.0-beta.14",
+    "react-dom": "^16.10.2",
+    "react-leaflet": "^2.4.0",
+    "react-leaflet-markercluster": "^2.0.0-rc3",
     "react-redux": "^7.1.1",
+    "react-scripts": "3.2.0",
     "react-select": "^3.0.8",
     "react-star-rating-component": "^1.4.1",
     "react-textfield": "0.0.6",
+    "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
     "thunk": "0.0.1",
     "tubular-react": "^2.0.8"
@@ -46,9 +47,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": {
-    "/companies": {
-      "target": "http://localhost:5000"
-    }
-  }
+  "proxy": "http://it2810-02.idi.ntnu.no:5000"
 }

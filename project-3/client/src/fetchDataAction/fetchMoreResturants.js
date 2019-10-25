@@ -4,7 +4,6 @@ import { getQuery } from "../reducers/fetchResturantsReducer";
 
 const fetchMore = query => {
   return dispatch => {
-    //dispatch(fetchResturantsPending(query, isNewQuery));
     fetch(query, {
       headers: {
         "Content-type": "text/html; charset=iso-8859-1"

@@ -41,12 +41,7 @@ const Searchbar = props => {
   );
   //Load list of cities from server to be used in the city selector component
   useEffect(() => {
-    fetch("http://it2810-02.idi.ntnu.no:5000/companies/cities", {
-      headers: {
-        "Content-type": "text/html; charset=iso-8859-1"
-      },
-      mode: "cors"
-    })
+    fetch("/companies/cities", {})
       .then(res => res.json())
       .then(
         result => {
@@ -64,9 +59,8 @@ const Searchbar = props => {
   function handleSearch() {
     //Unselect the selected row by setting the id to null.
     props.updateSelectedRow(null);
-    let endpointResturants = "http://it2810-02.idi.ntnu.no:5000/companies/?";
-    let endpointLocations =
-      "http://it2810-02.idi.ntnu.no:5000/companies/locations/?";
+    let endpointResturants = "/companies/?";
+    let endpointLocations = "/companies/locations/?";
     let query =
       "name=" +
       name +
@@ -84,6 +78,10 @@ const Searchbar = props => {
   //Called when text into textfield navn changes, updates navn state
   function handleTextChange(event) {
     setName(event.target.value);
+  }
+  //Called when a key is pressed in thetextfield: if the key is enter, handle the search
+  function handleTextKeyPress(event) {
+    if (event.key === "Enter") handleSearch();
   }
 
   //Called when more filters button is clicked, toogles the expand state of the searchbar
@@ -138,6 +136,7 @@ const Searchbar = props => {
             components={animatedComponents}
             isMulti
             options={cityOptions}
+            placeholder="Velg.."
             onChange={handleSelectCity.bind(this)}
           />
         </div>
@@ -151,6 +150,7 @@ const Searchbar = props => {
             components={animatedComponents}
             isMulti
             options={smileyOptions}
+            placeholder="Velg.."
             onChange={handleSelectSmiley.bind(this)}
           />
         </div>
@@ -169,6 +169,8 @@ const Searchbar = props => {
           placeholder="Navn"
           name="fname"
           onChange={handleTextChange}
+          onKeyPress={handleTextKeyPress}
+          autoFocus
         />
         <button id="SearchButton" onClick={handleSearch}>
           {pic}
