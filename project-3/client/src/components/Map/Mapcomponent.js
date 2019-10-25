@@ -1,45 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Mapcomponent.css";
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-markercluster";
-
+import { connect } from "react-redux";
+import { getResturantLocations } from "../../reducers/fetchResturantsReducer";
 const Mapcomponent = props => {
-  const [center, setCenter] = useState([63.415517, 10.404421]);
-  //const center = [63.415517, 10.404421];
+  const centerOfNorway = [64.6427, 12.4805];
+  const norwayZoomLevel = 5;
+  const restaurantZoomLevel = 20;
+  //Initial state of the Map component, zoom to see al norway and centered
+  const [center, setCenter] = useState(centerOfNorway);
+  const [zoom, setZoom] = useState(norwayZoomLevel);
+
   let resturants = props.resturants;
 
   let coordinates = [];
   let resturantNames = [];
-
-  if (resturants != "" && resturants !== null && resturants != undefined) {
-    for (let i = 0; i < resturants.length; i++) {
-      if (resturants[i].coordinates !== null) {
-        let coordinatesToFloat = resturants[i].coordinates.map(coordinate =>
-          parseFloat(coordinate)
-        );
-        coordinates.push(coordinatesToFloat);
-        resturantNames.push(resturants[i].name);
-      }
+  props.resturants.map(restaurant => {
+    if (restaurant.coordinates !== null) {
+      coordinates.push(restaurant.coordinates);
+      resturantNames.push(restaurant.name);
     }
-  } else {
-    coordinates = [center];
-    resturantNames = ["NTNU Gløs Online"];
-  }
-
-  const zoom = 12;
-
+  });
+  //If an element in the list is selected, find the relative restaurant
   if (props.selectedPointId !== null) {
     let selectedRestaurant = resturants.filter(
       restaurant => restaurant._id === props.selectedPointId
     )[0];
+    //If the restaurant has valid coordinates,
     if (selectedRestaurant.coordinates !== null) {
-      let tmpCoordinates = selectedRestaurant.coordinates.map(coordinate =>
-        parseFloat(coordinate)
-      );
-      if (center[0] !== tmpCoordinates[0] && center[1] !== tmpCoordinates[1]) {
+      let tmpCoordinates = selectedRestaurant.coordinates;
+      if (JSON.stringify(center) !== JSON.stringify(tmpCoordinates)) {
+        //Zoom in to restaurant and center
         setCenter(tmpCoordinates);
+        setZoom(restaurantZoomLevel);
       }
+    } //If coordinate for the match restaurant is not in the database
+    else if (JSON.stringify(center) !== JSON.stringify(centerOfNorway)) {
+      //Zoom out to all norway and center
+      setCenter(centerOfNorway);
+      setZoom(norwayZoomLevel);
     }
+  } //If no restaurant is selected, the zoom out to all norway
+  else if (JSON.stringify(center) !== JSON.stringify(centerOfNorway)) {
+    //Zoom out to all norway and center
+    setCenter(centerOfNorway);
+    setZoom(norwayZoomLevel);
   }
   return (
     <Map className="mapComponent" center={center} zoom={zoom} maxZoom={18}>
@@ -69,4 +75,11 @@ const MapMarkerCluster = props => {
   );
 };
 
-export default Mapcomponent;
+const mapStateToProps = state => ({
+  resturants: getResturantLocations(state)
+});
+
+export default connect(
+  mapStateToProps,
+  null
+)(Mapcomponent);

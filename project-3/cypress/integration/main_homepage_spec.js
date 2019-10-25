@@ -1,5 +1,5 @@
 // If you want to run test against the production build, uncomment the line below and comment the line under it
-// const url = "it2810-02.idi.ntnu.no/prosjekt3";
+//const url = "it2810-02.idi.ntnu.no/prosjekt3";
 const url = "localhost:3000";
 
 describe("Visit the url", () => {
@@ -66,7 +66,7 @@ describe("Test search functionality", () => {
 
     cy.get("#SearchButton").click();
 
-    // Check if the resultset in the list only contains restaurants with Sad Face. 
+    // Check if the resultset in the list only contains restaurants with Sad Face.
     cy.get(".Row").each($el => {
       cy.wrap(
         $el
@@ -78,43 +78,57 @@ describe("Test search functionality", () => {
   });
 });
 
-describe("Give a raitng", () => {
+
+describe("Give a raiting", () => {
   it("Gives the resturant Fagn a rating and check the rating gets updated", () => {
     // A function for reloading the page, which is necessary in order to check if the rating has updated
     function reloadPage() {
       cy.visit(url);
       cy.get('input[placeholder="Navn"]')
-        .type("Fagn")
-        .should("have.value", "Fagn");
+      .type("Fagn")
+      .should("have.value", "Fagn");
       cy.get("#SearchButton").click();
     }
-
+    
     reloadPage();
-
+    
     cy.get("#ReviewCell")
+    .children("p")
+    .invoke("text")
+    .then(text1 => {
+      // Get Fagns rating before submitting a new rating
+      let rating = parseFloat(text1.substr(0, text1.indexOf("/")));
+      
+      // Expands the row, and then submit a 5 star rating
+      cy.get(".Row").click();
+      cy.get('label[for="Fagn AS_5"]')
+      .children("i")
+      .click();
+      
+      reloadPage();
+      
+      cy.get("#ReviewCell")
       .children("p")
       .invoke("text")
-      .then(text1 => {
-        // Get Fagns rating before submitting a new rating
-        let rating = parseFloat(text1.substr(0, text1.indexOf("/")));
-
-        // Expands the row, and then submit a 5 star rating
-        cy.get(".Row").click();
-        cy.get('label[for="Fagn AS_5"]')
-          .children("i")
-          .click();
-
-        reloadPage();
-
-        cy.get("#ReviewCell")
-          .children("p")
-          .invoke("text")
-          .should(text2 => {
-            // Get the updated rating
-            let rating2 = parseFloat(text2.substr(0, text2.indexOf("/")));
+      .should(text2 => {
+        // Get the updated rating
+        let rating2 = parseFloat(text2.substr(0, text2.indexOf("/")));
             // Compare the new rating with the old rating, success if the new rating is equal or larger than the previous rating.
             expect(rating2).to.be.at.least(rating);
           });
       });
-  });
+    });
 });
+ /* 
+describe("Test pagination", () => {
+  it("Fetches more data when bottom is reached", () => {
+    cy.visit(url);
+    /* cy.get('input[placeholder="Navn"]')
+      .type("")
+      .should("have.value", " "); 
+    cy.get("#SearchButton").click();
+
+    cy.get('#Table').scrollTo('bottom', {duration:2000})
+  });
+}); */
+//test map component?
