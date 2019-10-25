@@ -78,7 +78,9 @@ Datasettet er hentet fra [mattilsynet](https://data.norge.no/data/mattilsynet/sm
 ![datasett](/uploads/aefe229a0435c1b1c212c63661759990/datasett.png)
 
 ## Testing
-Prosjektet er systematisk testet med unittesting og end-to-end testing. Unittestene tester om redux sine actions blir opprettet på en riktig måte av action creators. [Enzyme](https://airbnb.io/enzyme/) blir brukt til å sjekke om komponentene blir riktig rendret. For end-to-end testing, brukes [Cypress](https://www.cypress.io/). Her har vi flere tester, som blant annet tester søkefunksjonaliteten, at mer data blir fetchet ved scroll (pagination) og at ratingsystemet fungerer slik det skal.
+Prosjektet er systematisk testet med unittesting og end-to-end testing. Unittestene tester om redux sine actions blir opprettet på en riktig måte av action creators. [Enzyme](https://airbnb.io/enzyme/) blir brukt til å sjekke om komponentene blir riktig rendret. For end-to-end testing, brukes [Cypress](https://www.cypress.io/). Her har vi flere tester, som blant annet tester søkefunksjonaliteten, at mer data blir fetchet ved scroll (pagination) og at ratingsystemet fungerer slik det skal. 
+
+I tillegg har vi kontinuerlig testet manuelt under utviklingen, og sørget for at alt fungerte slik det skal, før vi pushet til dev.
 
 ## Inspirasjon og kilder
 Backend koden er inspirert og delvis hentet fra: Carnes, Beau: Learn the MERN stack by building an exercise tracker — MERN Tutorial. Fra: https://medium.com/@beaucarnes/learn-the-mern-stack-by-building-an-exercise-tracker-mern-tutorial-59c13c1237a1. [15.10.2019]
