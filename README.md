@@ -55,9 +55,20 @@ For å kjøre prosjektet lokalt, trengs Node.js og NPM. NPM følger med når en 
     * Gå deretter inn i client mappen og tast: `npm install`
     * Gå deretter inn i backend mappen og tast: `npm install`
     * Tilslutt tast følgende kommando i terminalen, uavhengig av hvilken mappe du befinner deg i: `npm install -g nodemon concurrently` 
-*   Gå tilslutt i den første klonede mappen, project-3 og tast: npm start
+*   Gå tilslutt i den første klonede mappen, project-3 og tast: `npm start`
 
 Husk du må være koblet til NTNU nett: enten være på campus eller bruke vpn. 
+
+##### Kjøring av tester
+* For å kjøre cypress-testene mot http://it2810-02.idi.ntnu.no/prosjekt3/:
+    * Gå til project-3 mappa, og bruk kommandoen:`node_modules\.bin\cypress open`
+* For å kjøre cypress-testene mot localhost:
+    * Gå til mappa cypress/integration og åpne main_spec.js
+    * Øverst i fila, endre url fra http://it2810-02.idi.ntnu.no/prosjekt3/ til localhost:3000
+    * Gå til project-3 mappa og skriv `npm start`
+    * Bruk deretter kommandoen: `node_modules\.bin\cypress open`
+* For å kjøre unittest:
+    * Gå til project-3 mappa og bruk kommandoen: `npm test`
 
 
 ## Innhold og funksjonalitet
