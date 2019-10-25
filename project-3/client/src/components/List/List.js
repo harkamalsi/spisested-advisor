@@ -37,7 +37,9 @@ const List = props => {
       //If the height of the table + the dynamic height of the scrolling cursor
       // is equal to the total scrollable height of the table, bottom is reached and
       // new data must be requested
-      if (el.scrollTop + el.clientHeight === el.scrollHeight) {
+      console.log("ddddddd");
+      console.log(el.scrollTop + el.clientHeight + 1, el.scrollHeight);
+      if (el.scrollTop + el.clientHeight + 1 >= el.scrollHeight) {
         fetchMoreData(table.attributes.url.value);
       }
     });
@@ -46,7 +48,7 @@ const List = props => {
   function fetchMoreData(url) {
     //Fetches routine with stored query and append fetched data to already stored
     //only if last char of url (String) is not 0 (page 0, just for error preventing)
-    if (url.slice(-1) !== "0") {
+    if (url.slice(-2) !== "=0") {
       props.fetchMore(url);
     }
 
@@ -85,7 +87,7 @@ const List = props => {
 
   let rows =
     props.listRawData.length === 0 ? (
-      <h2>Søkeresultater listes her hvis de finnes</h2>
+      <h2 id="placeholderText">Søkeresultater listes her hvis de finnes</h2>
     ) : (
       props.listRawData.map(row => (
         <ListRow
