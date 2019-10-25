@@ -1,0 +1,15 @@
+#Table {
+  display: flex;
+  flex-direction: column;
+  font-size: 15px;
+  min-width: 500px;
+  padding: 0px;
+  border-radius: 1%;
+  height: 100%;
+  margin: 0px;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+#placeholderText {
+  text-align: center;
+}

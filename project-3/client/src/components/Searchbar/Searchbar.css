@@ -1,0 +1,71 @@
+#Searchbar {
+  width: 100%;
+  border-radius: 15px;
+  padding: 10px 10px 10px 10px;
+}
+.Grid {
+  display: grid;
+  grid-template-columns: 15% 25% 25% 25% 10%;
+  width: auto;
+  height: auto;
+  background-color: #f5f5f5;
+}
+.Label {
+  margin: 0px;
+  padding: 0px;
+  text-align: left;
+  font-weight: 200;
+}
+#LabelRestaurant {
+  grid-area: 1/ 2/ 1/3;
+}
+#LabelSort {
+  grid-area: 1/ 4/ 1/5;
+}
+
+#TextRestaurant {
+  grid-area: 2/ 2/ 2/3;
+}
+#SortSelect {
+  grid-area: 2/ 4/ 2/5;
+}
+#SortSelectbar {
+  width: 80%;
+}
+#FiltersButtonCell {
+  grid-area: 3/ 2/ 3/3;
+  display: flex;
+  justify-content: flex-start;
+  border: none;
+}
+#FiltersButton {
+  border: none;
+  background: none;
+  color: #12649b;
+}
+#ExtraFilters {
+  grid-area: 4/ 1/ 4/6;
+  padding: 10px 0px 5px 0px;
+}
+#CitiesLabel {
+  grid-area: 1/ 2/ 1/3;
+}
+#SmileysLabel {
+  grid-area: 1/ 4/ 1/5;
+}
+#FilterCities {
+  grid-area: 2/ 2/ 2/3;
+  z-index: 9999;
+}
+#FilterCitiesbar {
+  width: 80%;
+}
+#FilterSmiley {
+  grid-area: 2/ 4/ 2/5;
+}
+#FilterSmileybar {
+  width: 80%;
+}
+.MagnifyingGlass {
+  width: 20px;
+}
