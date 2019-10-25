@@ -33,13 +33,6 @@ For å mappe restaurantadresser (geocoding), har vi brukt apiet fra [nominatim](
 Mongoose er en library for MongoDB og Nodejs som gjør det enklere å kunne jobbe med MongoDB. Vi har brukt mongoose for å definere Schemas, noe som hjelper med å definere spesifikke strukturer med forhandsdefinerte data types for dokumenter som hentes og gis til MongoDB. I dette prosjektet brukes det også Validation gjennom mongoose for å kunne validere data typer. Mongoose gjør det også generelt mye enklere å kunne holde Schemas konsistent når det gjøres operasjoner på databasen (MongoDB). 
 
 ## React komponentstruktur
-*  App
-*  Searchbar
-*  ReactSelectComponent
-*  Map
-*  React-Leaflet-Component
-*  List
-*  ListRow
 
 ### Hierarki diagram
 ![Diagram](/uploads/f395e1197c0c68d0785cf00e45631c80/Diagram.PNG)
@@ -72,6 +65,9 @@ Husk du må være koblet til NTNU nett: enten være på campus eller bruke vpn.
 
 
 ## Innhold og funksjonalitet
+
+Søkefunksjonen fungerer slik at man kan skrive fri tekst for å søke på navnene til restaurantene. I tillegg har man ulike filtrering- og sorteringsmuligheter. Man kan velge å filtrere på by, her kan flere byer velges og man kan filtrere på fjes, feks kun sur fjes og nøytral fjes. Det  er også mulig å sorter søkeresultatet etter alfabetiskrekkefølge og etter smilefjesgrad. 
+
 
 ## Datasett
 Datasettet er hentet fra [mattilsynet](https://data.norge.no/data/mattilsynet/smilefjestilsyn-p%C3%A5-serveringssteder). Denne har vi tilpasset til vår prototype ved å bruke et pythonscript. Ettersom adressene til restaurantene i datasettet ikke helt stemmer med de fysiske adressene (feks vegen istedenfor veien), ble det utfordrende å finne koordinater til alle restauranter. Derfor er det ikke alle restauranter som har koordinater i datasettet. 
