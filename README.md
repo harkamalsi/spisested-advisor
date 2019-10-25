@@ -68,7 +68,7 @@ Husk du må være koblet til NTNU nett: enten være på campus eller bruke vpn.
     * Gå til project-3 mappa og skriv `npm start`
     * Bruk deretter kommandoen: `node_modules\.bin\cypress open`
 * For å kjøre unittest:
-    * Gå til project-3 mappa og bruk kommandoen: `npm test`
+    * Gå til client mappa og bruk kommandoen: `npm test`
 
 
 ## Innhold og funksjonalitet
