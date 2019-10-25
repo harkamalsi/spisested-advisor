@@ -11,6 +11,8 @@ describe("Visit the url", () => {
 describe("Test search functionality", () => {
   it("Clicks the link button 'Flere filter'", () => {
     cy.contains("Flere").click();
+    
+    // check if text changed 'Flere' to 'Færre'
     cy.contains("Færre");
   });
 
@@ -118,17 +120,28 @@ describe("Give a raiting", () => {
           });
       });
     });
-});
- /* 
+}); 
+ 
 describe("Test pagination", () => {
   it("Fetches more data when bottom is reached", () => {
     cy.visit(url);
-    /* cy.get('input[placeholder="Navn"]')
-      .type("")
-      .should("have.value", " "); 
+    cy.get('input[placeholder="Navn"]')
+    .type("Burger")
+    .should("have.value", "Burger");
     cy.get("#SearchButton").click();
+    
+    // wait 500 ms to make sure the results have loaded properly
+    cy.wait(500);
 
-    cy.get('#Table').scrollTo('bottom', {duration:2000})
+    // get length of resturantslist (number of resturants in search result)
+    cy.get('#Table').children().its('length').then((size)=>{
+      cy.get('#Table').scrollTo('bottom', {duration:1000});
+
+      // after scrolling to the bottom, number of resturants in the list should be doubled
+      cy.get('#Table').children().should('have.length', size*2)
+    }
+    )
   });
-}); */
-//test map component?
+}); 
+
+

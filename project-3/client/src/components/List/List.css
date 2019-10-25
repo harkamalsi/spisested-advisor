@@ -8,6 +8,7 @@
   height: 100%;
   margin: 0px;
   overflow: scroll;
+  overflow-x: hidden;
 }
 #placeholderText {
   text-align: center;
