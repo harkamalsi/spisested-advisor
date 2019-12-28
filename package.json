@@ -1,6 +1,6 @@
 {
-  "homepage": "http://it2810-02.idi.ntnu.no/prosjekt3",
-  "name": "project3",
+  "homepage": "https://spisested-advisor.herokuapp.com/",
+  "name": "spisested-advisor",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
