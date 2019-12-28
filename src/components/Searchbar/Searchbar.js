@@ -62,7 +62,7 @@ const Searchbar = props => {
     let endpointResturants =
       'https://spisested-advisor-api.herokuapp.com/companies?';
     let endpointLocations =
-      'https://spisested-advisor-api.herokuapp.com/companieslocations/?';
+      'https://spisested-advisor-api.herokuapp.com/companies/locations/?';
     let query =
       'name=' +
       name +
