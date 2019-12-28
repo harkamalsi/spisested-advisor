@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/spisested-advisor/static/css/main.52e5934f.chunk.css",
+    "main.js": "/spisested-advisor/static/js/main.232ee2e0.chunk.js",
+    "main.js.map": "/spisested-advisor/static/js/main.232ee2e0.chunk.js.map",
+    "runtime-main.js": "/spisested-advisor/static/js/runtime-main.bb3c4024.js",
+    "runtime-main.js.map": "/spisested-advisor/static/js/runtime-main.bb3c4024.js.map",
+    "static/css/2.5ffb5b65.chunk.css": "/spisested-advisor/static/css/2.5ffb5b65.chunk.css",
+    "static/js/2.14b8f1a9.chunk.js": "/spisested-advisor/static/js/2.14b8f1a9.chunk.js",
+    "static/js/2.14b8f1a9.chunk.js.map": "/spisested-advisor/static/js/2.14b8f1a9.chunk.js.map",
+    "index.html": "/spisested-advisor/index.html",
+    "precache-manifest.b7f5073760200f4af84ca90062de0761.js": "/spisested-advisor/precache-manifest.b7f5073760200f4af84ca90062de0761.js",
+    "service-worker.js": "/spisested-advisor/service-worker.js",
+    "static/css/2.5ffb5b65.chunk.css.map": "/spisested-advisor/static/css/2.5ffb5b65.chunk.css.map",
+    "static/css/main.52e5934f.chunk.css.map": "/spisested-advisor/static/css/main.52e5934f.chunk.css.map",
+    "static/media/mg.svg": "/spisested-advisor/static/media/mg.2379110d.svg",
+    "static/media/smiley-happy.svg": "/spisested-advisor/static/media/smiley-happy.5c352696.svg",
+    "static/media/smiley-neutral.svg": "/spisested-advisor/static/media/smiley-neutral.8821be19.svg",
+    "static/media/smiley-sad.svg": "/spisested-advisor/static/media/smiley-sad.d6a4195b.svg",
+    "static/media/star.svg": "/spisested-advisor/static/media/star.e0b7262f.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.bb3c4024.js",
+    "static/css/2.5ffb5b65.chunk.css",
+    "static/js/2.14b8f1a9.chunk.js",
+    "static/css/main.52e5934f.chunk.css",
+    "static/js/main.232ee2e0.chunk.js"
+  ]
+}
