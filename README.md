@@ -3,7 +3,7 @@
 ## Introduksjon
 Prosjektet baserer seg på mattilsynets [smilefjesdatabase](https://data.norge.no/data/mattilsynet/smilefjestilsyn-p%C3%A5-serveringssteder), som inneholder alle restaurantinspeksjoner gjort av mattilsynet siden smilefjesordningens oppstart i 2016. Applikasjonen vår, som er en prototype i henhold til oppgavebeskrivelsen, gjør det mulig å søke gjennom denne databasen og få vist resultatet av søket i liste- og kartform. I tillegg er det mulig for brukerne av applikasjonen å gi deres egne vurderinger av restaurantene, fra 1-5 stjerner. 
 
-[Applikasjonen finnes her](http://it2810-02.idi.ntnu.no/prosjekt3/).
+[Link til applikasjonen](https://spisested-advisor.herokuapp.com/).
 ## Teknologi
 
 
